@@ -51,16 +51,18 @@ __Write an SQL query that pulls in the batting average table. Then, with Python 
 _type your results and analysis here_
 
 ```{python}
-# Include and execute your code here
+# Execute an SQL query to pull in the data
 q = """SELECT *
         FROM batting
     """
 results = pd.read_sql_query(q, con)
-
-# Now complete the rest of the task with python (e.g. pandas) code
-
 ```
 
+```{python}
+# Now use pandas code to work with the 'results' data frame and complete the task
+
+
+```
 
 ## QUESTION 2
 
@@ -85,15 +87,15 @@ _Describe your results and analysis here_
 
 ```{python}
 # Include and execute your code here
-q = """SELECT *
+q1 = """SELECT *
         FROM salaries
     """
-salaries = pd.read_sql_query(q, con)
+salaries = pd.read_sql_query(q1, con)
 
-q = """SELECT *
+q2 = """SELECT *
         FROM schools
     """
-salaries = pd.read_sql_query(q, con)
+schools = pd.read_sql_query(q2, con)
 
 # Now complete the rest of the task with python (e.g. pandas) code
 
