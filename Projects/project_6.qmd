@@ -26,10 +26,6 @@ Many people store their personal websites, blogs, and project websites on GitHub
 For this project, you will be making a public website that is a data science portfolio that will be hosted on GitHub. Your Resume will be one section of your portfolio/website. You should also post Data Science Society projects, personal projects, and any other data science related work you have done outside of class. Do not post any of the DS250 course work in this portfolio.
 
 
-### Data
-__Portfolio:__ [BYUI Data Science Portfolio](https://github.com/byuidatascience/datascience_portfolio)
-
-
 ### Readings
 
 - [Git and GitHub for DS](../Setup/git_github_setup.qmd)
