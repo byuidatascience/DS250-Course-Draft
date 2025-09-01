@@ -20,7 +20,8 @@ For this project, you will be making a public website that is a data science por
 
 ### Data
 
-**Portfolio:** [BYUI Data Science Portfolio](https://github.com/byuidatascience/datascience_portfolio)
+None/missing/null/NA
+<!-- **Portfolio:** [BYUI Data Science Portfolio](https://github.com/byuidatascience/datascience_portfolio) -->
 
 ### Readings
 

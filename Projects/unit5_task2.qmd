@@ -52,7 +52,7 @@ No new readings. Review previous readings as needed:
 
 ### Submission / Deliverables:
 
-_Use this [unit5_task2_template](../Templates/unit5_task2_template.qmd) to create your Client Report. Answer the questions. Each answer should include a written description of your results, code cells with comments, charts and/or tables._  
+__Rather than submitting something for each task of this unit, you will submit one client report at the end of the unit that is the culmination of all the tasks.__ Use this [template](../Templates/unit5_task3_template.qmd) to create your Client Report. Answer the questions. Each answer should include a written description of your results, code cells with comments, charts and/or tables.  
 
 ::: {.callout-note collapse="true"}
 Your instructor will advise you, or it will be evident in Canvas, whether to submit an rendered .html file, or a link to the rendered file on GitHub on gh-pages. (Do not submit the URL to the GitHub `.qmd` file)  

@@ -41,13 +41,22 @@ LetsPlot.setup_html(isolated_frame=True)
 
 ```
 
-## QUESTION 1
+<!-- Rather than a simple write up like we have been doing so far, this project requires a more structured approach. You will need to show you have completed the tasks, but will structure the report in a way that is more like a client report. The report will be structured as follows:
 
-1. __Prep the data for machine learning:__
-    a. Create your target (also known as “y” or “label”) column based on the new income range column  
-    a. One-hot encode all remaining categorical columns 
+ - Executive Summary: This is a high level overview of the analysis, including the problem statement, the data used, and the main findings. It should be concise and to the point, summarizing the key insights/recommendations without going into too much detail. These are usually bullet points, no graphs. PLEASE EXPLICITLY STATE IN THIS SECTION WHERE YOU DID THE STRETCH OR NOT! 
+ - Methods: this is a high level overview of the methods used in the analysis. This should include an explanation of data preparation steps, especially how you dealt with each categorical variable and why. Showing the resulting or original distribution of variables may be helpful. Describe how you handled missing values and outliers. How did/might your decisions impact results?Explain any feature engineering steps you took. This is also where you will put the graphs you recreated to show you validated the dataset and that it matches the article.
+ - Results: this is a more in-depth explanation of results. A classification report and feature importance graphs belong here.
+ - Conclusion: this is where you will discuss the implication of the results, including any limitations of the analysis, and recommendations for actions/future work. It may feel repetitive to the executive summary, but it should be more detailed and include any additional insights you gained from the analysis. -->
+
+## Executive Summary
 
 _type your write-up and analysis here_
+
+
+
+## Methods
+
+_type your report here, you will likely want multiple code chunks and text intermingled_
 
 ```{python}
 # Include and execute your code here
@@ -55,15 +64,16 @@ _type your write-up and analysis here_
 
 ```
 
+## Results
 
-## QUESTION 2
-
-1. __Build a machine learning model that predicts whether a person makes at least $50k. Describe your model and report the accuracy.__
-
-_type your write-up and analysis here_
+_type your report here, you will likely want multiple code chunks and text intermingled_
 
 ```{python}
 # Include and execute your code here
 
 
 ```
+
+## Results
+
+_type your report here_
