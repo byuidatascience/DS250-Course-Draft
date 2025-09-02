@@ -487,7 +487,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="client-request" class="level3">
 <h3 class="anchored" data-anchor-id="client-request">Client Request</h3>
-<p>For this project, you will validate the assignments you have done previously, but this time using Python pandas code. You will still need to connect to the database to pull the data in, but all the filtering, calculating, joining, etc. should be done with Python pandas (or polars).</p>
+<p>For this project, you will validate the assignments you have done previously, but this time using Python pandas code instead of complicated SQL queries. You will still need to connect to the database to pull the data in, but all the filtering, calculating, joining, etc. should be done with Python pandas (or polars).</p>
 </section>
 <section id="data" class="level3">
 <h3 class="anchored" data-anchor-id="data">Data</h3>
@@ -550,10 +550,10 @@ Note
 <h3 class="anchored" data-anchor-id="questions-and-tasks">Questions and Tasks</h3>
 <p>Download the <a href="../Templates/unit2_task3_template.qmd">Unit 2 Task 3 Template</a>.</p>
 <ol type="1">
-<li><p><strong>Write an SQL query that pulls in the batting average table. Then, with Python Pandas code create a dataframe that contains playerID, yearID, and batting average for players with at least 10 at bat that year. Sort the dataframe from highest batting average to lowest, and then by playerid alphabetically. Show the top 5 results in your report.</strong></p></li>
-<li><p><strong>Now use Python Pandas to calculate the batting average for players over their entire careers (all years combined). Only include players with at least 100 at bats over their entire career, and print the top 5 results.</strong></p></li>
-<li><p><strong>Write an SQL query that pulls in the the salaries table and the schools table (and any other tables you might need) and store them in pandas dataframes. Combine the dataframes to create a list of baseball players who attended BYU-Idaho. The new table should contain five columns: playerID, schoolID, salary, and the yearID/teamID associated with each salary. Order the table by salary (highest to lowest) and print out the table in your report.</strong></p></li>
-<li><p><strong>Pick any two baseball teams and compare them using a metric of your choice (average salary, home runs, number of wins, etc). Be creative! Write an SQL query to read in the tables you need, then use pandas to manipulate the data. Finally, make a graph using Lets-Plot to visualize the comparison. What do you learn?</strong></p></li>
+<li><p><strong>Write an SQL query that pulls in the batting table. Then, with Python Pandas code create a dataframe that contains playerID, yearID, and batting average for players with at least 10 at bat that year. Sort the dataframe from highest batting average to lowest, and then by playerid alphabetically. Show the top 5 results in your report.</strong></p></li>
+<li><p><strong>Now use Python Pandas to calculate the batting average for players over their entire careers (all years combined). Only include players with at least 100 at bats over their entire career. Sort the dataframe from highest batting average to lowest, and then by playerid alphabetically. Show the top 5 results in your report.</strong></p></li>
+<li><p><strong>Write an SQL query that pulls in the the salaries table and the collegeplaying table (and any other tables you might need) and store them in pandas dataframes. Combine the dataframes to create a list of baseball players who attended BYU-Idaho. The new table should contain five columns: playerID, schoolID, salary, and the yearID and teamID associated with each salary.</strong></p></li>
+<li><p><strong>Pick any two baseball teams and compare them using a metric of your choice (average salary, home runs, number of wins, etc). Be creative! Write an SQL query to read in the table(s) you need, then use pandas to manipulate the data. Finally, make a graph using Lets-Plot to visualize the comparison. What do you learn?</strong></p></li>
 </ol>
 </section>
 <section id="submission" class="level3">
