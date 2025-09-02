@@ -39,32 +39,14 @@ Complete these readings before we cover the material in class. This will help yo
 In other words, if an assignment is due on Wednesday, we will cover the material needed to complete the assignment on Tuesday. Therefore, you should complete the readings on Monday (or anytime before class on Tuesday).
 :::
 
-There are many [flavors of SQL](https://en.wikipedia.org/wiki/Database#Database_management_system) but most flavors have the same base commands. SQL queries are typed in the following pattern;
-
-```SQL
-SELECT -- <columns> and <column calculations>
-FROM -- <table name>
-  JOIN -- <table name>
-  ON -- <columns to join>
-WHERE -- <filter condition on rows>
-GROUP BY -- <subsets for column calculations>
-HAVING -- <filter conditions on groups>
-ORDER BY -- <how the output is returned in sequence>
-LIMIT -- <number of rows to return>
-```
-
-Reading you may find useful (depending on how you approach the assignment):
-   
-- [Inline subqueries](https://docs.data.world/documentation/sql/concepts/advanced/inline_subqueries.html)
-- [Dates/Times in SQLite](https://www.sqlite.org/lang_datefunc.html)
+*Optional*
+- [P4DS: CH20.7 Working with Date Times in Dataframes](https://aeturrell.github.io/python4DS/dates-and-times.html#working-with-datetimes-in-data-frames)
 
 ### Questions and Tasks
 
-Download the [Unit 2 Task 3 Template](../Templates/unit2_task3_template.qmd).
+Download the [the template for this task](../Templates/unit2_task3_template.qmd).
 
-1. Calculate the average career length for players who have played at least 10 games in their career. Use years as the unit of measure.
-
-1. Identify the top 10 players with the longest careers (based on the number of years they played). Include their:
+1. Identify the top 10 players with the longest careers. Include their:
 
     - playerID
     - first_name
@@ -96,7 +78,7 @@ When you have completed the report, you will need to follow this process to subm
 
 ### Deliverables:
 
-_Use this [unit2_task3_template](../Templates/unit2_task3_template.qmd) to submit your Client Report._
+_Use [the template for this task](../Templates/unit2_task3_template.qmd) to submit your Client Report._
 
 Answers to the questions | tasks. Each should include a written description of your results, code cells with comments, charts and/or tables.
 

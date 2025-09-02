@@ -55,9 +55,9 @@ website:
           - text: "Task 2"
             file: Projects/unit2_task2.qmd
           - text: "Task 3"
-            file: Projects/unit2_task3.qmd
+            file: Projects/unit2_task3_validation_in_py.qmd
           - text: "Task 4"
-            file: Projects/unit2_task4.qmd
+            file: Projects/unit2_task3.qmd
       - text: "Unit 3 Wrangling"
         menu:
           - text: "Task 1"

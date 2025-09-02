@@ -41,28 +41,17 @@ Complete these readings before we cover the material in class. This will help yo
 In other words, if an assignment is due on Wednesday, we will cover the material needed to complete the assignment on Tuesday. Therefore, you should complete the readings on Monday (or anytime before class on Tuesday).
 :::
 
-There are many [flavors of SQL](https://en.wikipedia.org/wiki/Database#Database_management_system) but most flavors have the same base commands. SQL queries are typed in the following pattern;
+- [P4DS: CH4 Data Transformation](https://aeturrell.github.io/python4DS/data-transform.html#) 
+- [P4DS: CH22 Joins](https://aeturrell.github.io/python4DS/joins.html)
 
-```SQL
-SELECT -- <columns> and <column calculations>
-FROM -- <table name>
-  JOIN -- <table name>
-  ON -- <columns to join>
-WHERE -- <filter condition on rows>
-GROUP BY -- <subsets for column calculations>
-HAVING -- <filter conditions on groups>
-ORDER BY -- <how the output is returned in sequence>
-LIMIT -- <number of rows to return>
-```
+*Optional*
 
-Reading you may find useful (depending on how you approach the assignment):
-   
-- [Inline subqueries](https://docs.data.world/documentation/sql/concepts/advanced/inline_subqueries.html)
-- [Dates/Times in SQLite](https://www.sqlite.org/lang_datefunc.html)
+- Skim [P4DS: CH13 Exploratory Data Analysis](https://aeturrell.github.io/python4DS/exploratory-data-analysis.html) to see many different possible geoms to use depending on the data types and to see some of the commands from CH4 again. 
+
 
 ### Questions and Tasks
 
-Download the [Unit 2 Task 3 Template](../Templates/unit2_task3_template.qmd).
+Download the [template for this task](../Templates/unit2_task3_validation_template.qmd).
 
 1. __Write an SQL query that pulls in the batting table. Then, with Python Pandas code create a dataframe that contains playerID, yearID, and batting average for players with at least 10 at bat that year. Sort the dataframe from highest batting average to lowest, and then by playerid alphabetically. Show the top 5 results in your report.__
 
@@ -97,7 +86,7 @@ When you have completed the report, you will need to follow this process to subm
 
 ### Deliverables:
 
-_Use this [unit2_task3_template](../Templates/unit2_task3_template.qmd) to submit your Client Report._
+_Use this [task's template](../Templates/unit2_task3_validation_template.qmd) to submit your Client Report._
 
 Answers to the questions | tasks. Each should include a written description of your results, code cells with comments, charts and/or tables.
 
