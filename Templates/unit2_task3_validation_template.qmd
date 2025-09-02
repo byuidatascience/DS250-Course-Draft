@@ -1,0 +1,113 @@
+---
+title: "Client Report - Longevity of Baseball Players"
+subtitle: "Unit 2 Task 3"
+author: "[STUDENT NAME]"
+format:
+  html:
+    self-contained: true
+    page-layout: full
+    title-block-banner: true
+    toc: true
+    toc-depth: 3
+    toc-location: body
+    number-sections: false
+    html-math-method: katex
+    code-fold: true
+    code-summary: "Show the code"
+    code-overflow: wrap
+    code-copy: hover
+    code-tools:
+        source: false
+        toggle: true
+        caption: See code
+execute: 
+  warning: false
+    
+---
+
+```{python}
+import pandas as pd 
+import numpy as np
+import sqlite3
+from lets_plot import *
+
+LetsPlot.setup_html(isolated_frame=True)
+```
+
+
+```{python}
+# Learn morea about Code Cells: https://quarto.org/docs/reference/cells/cells-jupyter.html
+
+# Include and execute your code here
+sqlite_file = 'lahmansbaseballdb.sqlite'
+# this file must be in the same location as your .qmd or .py file
+con = sqlite3.connect(sqlite_file)
+```
+
+## QUESTION 1
+
+__Write an SQL query that pulls in the batting average table. Then, with Python Pandas code create a dataframe that contains playerID, yearID, and batting average for players with at least 10 at bat that year. Sort the dataframe from highest batting average to lowest, and then by playerid alphabetically. Show the top 5 results in your report.__
+
+_type your results and analysis here_
+
+```{python}
+# Execute an SQL query to pull in the data
+q = """SELECT *
+        FROM batting
+    """
+results = pd.read_sql_query(q, con)
+```
+
+```{python}
+# Now use pandas code to work with the 'results' data frame and complete the task
+
+
+```
+
+## QUESTION 2
+
+__Now use Python Pandas to calculate the batting average for players over their entire careers (all years combined). Only include players with at least 100 at bats over their entire career, and print the top 5 results.__
+
+_Describe your results and analysis here_
+
+```{python}
+# Include and execute your pandas code code here. (You already read in the batting table in Question 1)
+
+
+```
+
+
+## Question 3
+
+__Write an SQL query that pulls in the the salaries table and the schools table (and any other tables you might need) and store them in pandas dataframes. Combine the dataframes to create a list of baseball players who attended BYU-Idaho. The new table should contain five columns: playerID, schoolID, salary, and the yearID/teamID associated with each salary. Order the table by salary (highest to lowest) and print out the table in your report.__
+
+_Describe your results and analysis here_
+
+<!-- The code chunk below can get you going, you may want to write additional code before or after it. -->
+
+```{python}
+# Include and execute your code here
+q1 = """SELECT *
+        FROM salaries
+    """
+salaries = pd.read_sql_query(q1, con)
+
+q2 = """SELECT *
+        FROM collegeplaying
+    """
+college = pd.read_sql_query(q2, con)
+
+# Now complete the rest of the task with python (e.g. pandas) code
+
+```
+
+## Question 4
+
+__Pick any two baseball teams and compare them using a metric of your choice (average salary, home runs, number of wins, etc). Be creative! Write an SQL query to read in the tables you need (similar to the tasks above), then use pandas to manipulate the data. Finally, make a graph using Lets-Plot to visualize the comparison. What do you learn?__
+
+_Describe your results and analysis here_
+
+
+```{python}
+
+```
