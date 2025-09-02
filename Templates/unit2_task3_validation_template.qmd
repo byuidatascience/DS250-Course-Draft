@@ -93,9 +93,9 @@ q1 = """SELECT *
 salaries = pd.read_sql_query(q1, con)
 
 q2 = """SELECT *
-        FROM schools
+        FROM collegeplaying
     """
-schools = pd.read_sql_query(q2, con)
+college = pd.read_sql_query(q2, con)
 
 # Now complete the rest of the task with python (e.g. pandas) code
 
