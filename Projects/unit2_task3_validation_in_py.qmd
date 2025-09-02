@@ -1,5 +1,5 @@
 ---
-title: "Unit 2 Task 3: Longevity of Players"
+title: "Unit 2 Task 3: Validation"
 date: 2025-04-02T11:02:05+06:00
 lastmod: 2025-04-02T10:42:26+06:00
 weight: 4
@@ -41,12 +41,12 @@ Complete these readings before we cover the material in class. This will help yo
 In other words, if an assignment is due on Wednesday, we will cover the material needed to complete the assignment on Tuesday. Therefore, you should complete the readings on Monday (or anytime before class on Tuesday).
 :::
 
-- [P4DS: CH4 Data Transformation](https://aeturrell.github.io/python4DS/data-transform.html#) 
-- [P4DS: CH22 Joins](https://aeturrell.github.io/python4DS/joins.html)
+- __[P4DS: CH4 Data Transformation]__(https://aeturrell.github.io/python4DS/data-transform.html#) 
+- __[P4DS: CH22 Joins]__(https://aeturrell.github.io/python4DS/joins.html)
 
 *Optional*
 
-- Skim [P4DS: CH13 Exploratory Data Analysis](https://aeturrell.github.io/python4DS/exploratory-data-analysis.html) to see many different possible geoms to use depending on the data types and to see some of the commands from CH4 again. 
+- [P4DS: CH13 Exploratory Data Analysis](https://aeturrell.github.io/python4DS/exploratory-data-analysis.html) Skim to see many different possible geoms to use depending on the data types and to see some of the commands from CH4 again. 
 
 
 ### Questions and Tasks
