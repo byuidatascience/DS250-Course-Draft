@@ -8,7 +8,7 @@
 
 <meta name="dcterms.date" content="2025-04-02">
 
-<title>Unit 2 Task 2: BYU-I Players and Comparing Teams – DS 250!</title>
+<title>Unit 2 Task 3: Validation – DS 250!</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -456,7 +421,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Unit 2 Task 2: BYU-I Players and Comparing Teams</h1>
+<h1 class="title">Unit 2 Task 3: Validation</h1>
 </div>
 
 
@@ -481,12 +446,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="background" class="level3">
 <h3 class="anchored" data-anchor-id="background">Background</h3>
-<p>When you hear the word “relationship” what is the first thing that comes to mind? Probably not baseball. But a relationship is simply a way to describe how two or more objects are connected. There are many relationships in baseball such as those between teams and managers, players and salaries, even stadiums and concession prices.</p>
-<p>The graphs on <a href="https://web.archive.org/web/20200804101201/http://www.besttickets.com/blog/mlb-players-census/">Data Visualizations from Best Tickets</a> show many other relationships that exist in baseball.</p>
+<p>How do you know if you have correctly programmed a query or an analysis? The process of confirming that your analysis or dataset is “correct” is called validation.</p>
+<p>Imagine you are new on the job and received the assignment to run queries on a baseball dataset. Confirming you did things correctly is a good idea before presenting your data to others and letting them discover your mistake. Or maybe, it isn’t a matter of you doing something wrong as just a realization that the data source is flawed. Making that discovery is very important and makes you look really good; as opposed to someone else discovering it later - which can be a big hit to your credibility.</p>
+<p>Consider all the various ways you might want to validate the query results. One way to validate, though certainly not the only way and not necessarily the best way, is to try to accomplish the same task in a different system or language. That’s the purpose of this assignment.</p>
+<p>This assignment may also help you connect how data wrangling is done in Python with a language you are already familiar with (SQL).</p>
 </section>
 <section id="client-request" class="level3">
 <h3 class="anchored" data-anchor-id="client-request">Client Request</h3>
-<p>For this project, the Client wants you to use SQL queries called from within Python. Then, save the query results and use use Lets-Plot charts to visualize the results.</p>
+<p>For this project, you will validate the assignments you have done previously, but this time using Python pandas code instead of complicated SQL queries. You will still need to connect to the database to pull the data in, but all the filtering, calculating, joining, etc. should be done with Python pandas (or polars).</p>
 </section>
 <section id="data" class="level3">
 <h3 class="anchored" data-anchor-id="data">Data</h3>
@@ -529,29 +496,16 @@ Note
 </div>
 </div>
 </div>
-<p>There are many <a href="https://en.wikipedia.org/wiki/Database#Database_management_system">flavors of SQL</a> but most flavors have the same base commands. SQL queries are typed in the following pattern;</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="co">-- &lt;columns&gt; and &lt;column calculations&gt;</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> <span class="co">-- &lt;table name&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">JOIN</span> <span class="co">-- &lt;table name&gt;</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span> <span class="co">-- &lt;columns to join&gt;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="co">-- &lt;filter condition on rows&gt;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> <span class="co">-- &lt;subsets for column calculations&gt;</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">HAVING</span> <span class="co">-- &lt;filter conditions on groups&gt;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="co">-- &lt;how the output is returned in sequence&gt;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="kw">LIMIT</span> <span class="co">-- &lt;number of rows to return&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The reading for this task come from the Intermediate section of this excellent <a href="https://docs.data.world/documentation/sql/concepts/basic/intro.html">SQL Guide</a>. Read the following for this task:</p>
 <ul>
-<li><a href="https://docs.data.world/documentation/sql/concepts/intermediate/Joins.html">Joins</a></li>
-<li><a href="https://docs.data.world/documentation/sql/concepts/intermediate/CASE.html">CASE</a></li>
-<li><a href="https://docs.data.world/documentation/sql/concepts/intermediate/IN_and_NOT_IN.html">IN and NOT IN</a></li>
+<li><strong>[P4DS: CH4 Data Transformation]</strong>(https://aeturrell.github.io/python4DS/data-transform.html#)</li>
 </ul>
 </section>
 <section id="questions-and-tasks" class="level3">
 <h3 class="anchored" data-anchor-id="questions-and-tasks">Questions and Tasks</h3>
-<p>Download the <a href="../Templates/unit2_task2_template.qmd">Unit 2 Task 2 Template</a>.</p>
+<p>Download the <a href="../Templates/unit2_task2_template.qmd">template for this task</a>.</p>
 <ol type="1">
-<li><p><strong>Write an SQL query to create a new dataframe about baseball players who attended BYU-Idaho. The new table should contain five columns: playerID, schoolID, salary, and the yearID/teamID associated with each salary. Order the table by salary (highest to lowest) and print out the table in your report.</strong></p></li>
-<li><p><strong>Pick any two baseball teams and compare them using a metric of your choice (average salary, home runs, number of wins, etc). Be creative! Write an SQL query to get the data you need, then make a graph using Lets-Plot to visualize the comparison. What do you learn?</strong></p></li>
+<li><p><strong>Write an SQL query that pulls in the batting table. Then, with Python Pandas code create a dataframe that contains playerID, yearID, and batting average for players with at least 10 at bat that year. Sort the dataframe from highest batting average to lowest, and then by playerid alphabetically. Show the top 5 results in your report.</strong></p></li>
+<li><p><strong>Write an SQL query that pulls in the batting table. Then, with Python Pandas calculate the batting average for players over their entire careers (all years combined). Only include players with at least 100 at bats over their entire career. Sort the dataframe from highest batting average to lowest, and then by playerid alphabetically. Show the top 5 results in your report.</strong></p></li>
 </ol>
 </section>
 <section id="submission" class="level3">
@@ -600,7 +554,7 @@ Note
 </section>
 <section id="deliverables" class="level3">
 <h3 class="anchored" data-anchor-id="deliverables">Deliverables:</h3>
-<p><em>Use this <a href="../Templates/unit2_task2_template.qmd">unit2_task2_template</a> to submit your Client Report.</em></p>
+<p><em>Use this <a href="../Templates/unit2_task2_template.qmd">task’s template</a> to submit your Client Report.</em></p>
 <p>Answers to the questions | tasks. Each should include a written description of your results, code cells with comments, charts and/or tables.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="true" aria-label="Toggle callout">

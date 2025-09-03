@@ -446,13 +446,13 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="background" class="level3">
 <h3 class="anchored" data-anchor-id="background">Background</h3>
-<p>How do you know if you have correctly programmed a query or an analysis? The process of confirming that your analysis or dataset is “correct” is called validation.</p>
-<p>Imagine you are new on the job and received the assignment to run queries on a baseball dataset. Confirming you did things correctly is a good idea before presenting your data to others and letting them discover your mistake. Or maybe, it isn’t a matter of you doing something wrong as just a realization that the data source is flawed. Making that discovery is very important and makes you look really good; as opposed to someone else discovering it later - which can be a big hit to your credibility.</p>
-<p>Consider all the various ways you might want to validate the query results. One way to validate, though certainly not the only way and not necessarily the best way, is to try to accomplish the same task in a different system or language. That’s the purpose of this assignment.</p>
+<p>When you hear the word “relationship” what is the first thing that comes to mind? Probably not baseball. But a relationship is simply a way to describe how two or more objects are connected. There are many relationships in baseball such as those between teams and managers, players and salaries, even stadiums and concession prices.</p>
+<p>The graphs on <a href="https://web.archive.org/web/20200804101201/http://www.besttickets.com/blog/mlb-players-census/">Data Visualizations from Best Tickets</a> show many other relationships that exist in baseball.</p>
+<p>It is rare for an analysis to rely solely on one table. In fact, that is the whole point of a relational database: to quickly and easily tie tables together. Many students have already learned how to join tables using SQL. This assignment gives you practice joining tables using Python Pandas code. Students inevitably ask, “if I can do the same thing in both languages, why/when would I chose one over the other?”. <a href="https://datascience.stackexchange.com/questions/34357/why-do-people-prefer-pandas-to-sql">This thread</a> has some good thoughts on the topic.</p>
 </section>
 <section id="client-request" class="level3">
 <h3 class="anchored" data-anchor-id="client-request">Client Request</h3>
-<p>For this project, you will validate the assignments you have done previously, but this time using Python pandas code instead of complicated SQL queries. You will still need to connect to the database to pull the data in, but all the filtering, calculating, joining, etc. should be done with Python pandas (or polars).</p>
+<p>For this project you will use Python pandas code to join (a.k.a. merge) tables and perform additional manipulations. You will still need to connect to the database to pull the data in, but all the filtering, calculating, joining, etc. should be done with Python pandas (or polars).</p>
 </section>
 <section id="data" class="level3">
 <h3 class="anchored" data-anchor-id="data">Data</h3>
@@ -496,20 +496,18 @@ Note
 </div>
 </div>
 <ul>
-<li><strong>[P4DS: CH4 Data Transformation]</strong>(https://aeturrell.github.io/python4DS/data-transform.html#)</li>
 <li><strong>[P4DS: CH22 Joins]</strong>(https://aeturrell.github.io/python4DS/joins.html)</li>
 </ul>
 <p><em>Optional</em></p>
 <ul>
 <li><a href="https://aeturrell.github.io/python4DS/exploratory-data-analysis.html">P4DS: CH13 Exploratory Data Analysis</a> Skim to see many different possible geoms to use depending on the data types and to see some of the commands from CH4 again.</li>
+<li><strong>[P4DS: CH4 Data Transformation]</strong>(https://aeturrell.github.io/python4DS/data-transform.html#) as review</li>
 </ul>
 </section>
 <section id="questions-and-tasks" class="level3">
 <h3 class="anchored" data-anchor-id="questions-and-tasks">Questions and Tasks</h3>
 <p>Download the <a href="../Templates/unit2_task3_validation_template.qmd">template for this task</a>.</p>
 <ol type="1">
-<li><p><strong>Write an SQL query that pulls in the batting table. Then, with Python Pandas code create a dataframe that contains playerID, yearID, and batting average for players with at least 10 at bat that year. Sort the dataframe from highest batting average to lowest, and then by playerid alphabetically. Show the top 5 results in your report.</strong></p></li>
-<li><p><strong>Now use Python Pandas to calculate the batting average for players over their entire careers (all years combined). Only include players with at least 100 at bats over their entire career. Sort the dataframe from highest batting average to lowest, and then by playerid alphabetically. Show the top 5 results in your report.</strong></p></li>
 <li><p><strong>Write an SQL query that pulls in the the salaries table and the collegeplaying table (and any other tables you might need) and store them in pandas dataframes. Combine the dataframes to create a list of baseball players who attended BYU-Idaho. The new table should contain five columns: playerID, schoolID, salary, and the yearID and teamID associated with each salary.</strong></p></li>
 <li><p><strong>Pick any two baseball teams and compare them using a metric of your choice (average salary, home runs, number of wins, etc). Be creative! Write an SQL query to read in the table(s) you need, then use pandas to manipulate the data. Finally, make a graph using Lets-Plot to visualize the comparison. What do you learn?</strong></p></li>
 </ol>
