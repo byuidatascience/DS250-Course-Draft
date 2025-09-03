@@ -10,16 +10,16 @@ keywords: [""]
 
 ### Background
 
-How do you know if you have correctly programmed a query or an analysis? The process of confirming that your analysis or dataset is "correct" is called validation. 
+When you hear the word “relationship” what is the first thing that comes to mind? Probably not baseball. But a relationship is simply a way to describe how two or more objects are connected. There are many relationships in baseball such as those between teams and managers, players and salaries, even stadiums and concession prices. 
 
-Imagine you are new on the job and received the assignment to run queries on a baseball dataset. Confirming you did things correctly is a good idea before presenting your data to others and letting them discover your mistake. Or maybe, it isn't a matter of you doing something wrong as just a realization that the data source is flawed. Making that discovery is very important and makes you look really good; as opposed to someone else discovering it later - which can be a big hit to your credibility.
+The graphs on [Data Visualizations from Best Tickets](https://web.archive.org/web/20200804101201/http://www.besttickets.com/blog/mlb-players-census/) show many other relationships that exist in baseball.
 
-Consider all the various ways you might want to validate the query results. One way to validate, though certainly not the only way and not necessarily the best way, is to try to accomplish the same task in a different system or language. That's the purpose of this assignment.
+It is rare for an analysis to rely solely on one table. In fact, that is the whole point of a relational database: to quickly and easily tie tables together. Many students have already learned how to join tables using SQL. This assignment gives you practice joining tables using Python Pandas code. Students inevitably ask, "if I can do the same thing in both languages, why/when would I chose one over the other?". [This thread](https://datascience.stackexchange.com/questions/34357/why-do-people-prefer-pandas-to-sql) has some good thoughts on the topic.  
 
 
 ### Client Request
 
-For this project, you will validate the assignments you have done previously, but this time using Python pandas code instead of complicated SQL queries. You will still need to connect to the database to pull the data in, but all the filtering, calculating, joining, etc. should be done with Python pandas (or polars). 
+For this project you will use Python pandas code to join (a.k.a. merge) tables and perform additional manipulations. You will still need to connect to the database to pull the data in, but all the filtering, calculating, joining, etc. should be done with Python pandas (or polars). 
 
 
 ### Data
@@ -41,21 +41,17 @@ Complete these readings before we cover the material in class. This will help yo
 In other words, if an assignment is due on Wednesday, we will cover the material needed to complete the assignment on Tuesday. Therefore, you should complete the readings on Monday (or anytime before class on Tuesday).
 :::
 
-- __[P4DS: CH4 Data Transformation]__(https://aeturrell.github.io/python4DS/data-transform.html#) 
 - __[P4DS: CH22 Joins]__(https://aeturrell.github.io/python4DS/joins.html)
 
 *Optional*
 
 - [P4DS: CH13 Exploratory Data Analysis](https://aeturrell.github.io/python4DS/exploratory-data-analysis.html) Skim to see many different possible geoms to use depending on the data types and to see some of the commands from CH4 again. 
+- __[P4DS: CH4 Data Transformation]__(https://aeturrell.github.io/python4DS/data-transform.html#) as review
 
 
 ### Questions and Tasks
 
 Download the [template for this task](../Templates/unit2_task3_validation_template.qmd).
-
-1. __Write an SQL query that pulls in the batting table. Then, with Python Pandas code create a dataframe that contains playerID, yearID, and batting average for players with at least 10 at bat that year. Sort the dataframe from highest batting average to lowest, and then by playerid alphabetically. Show the top 5 results in your report.__
-
-1. __Now use Python Pandas to calculate the batting average for players over their entire careers (all years combined). Only include players with at least 100 at bats over their entire career. Sort the dataframe from highest batting average to lowest, and then by playerid alphabetically. Show the top 5 results in your report.__
 
 1. __Write an SQL query that pulls in the the salaries table and the collegeplaying table (and any other tables you might need) and store them in pandas dataframes. Combine the dataframes to create a list of baseball players who attended BYU-Idaho. The new table should contain five columns: playerID, schoolID, salary, and the yearID and teamID associated with each salary.__
 

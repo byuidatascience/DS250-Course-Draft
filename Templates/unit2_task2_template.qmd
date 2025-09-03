@@ -1,6 +1,6 @@
 ---
-title: "Client Report - BYU-Idaho Players and Comparing Teams"
-subtitle: "Unit 2 Task 2"
+title: "Client Report - Longevity of Baseball Players"
+subtitle: "Unit 2 Task 3"
 author: "[STUDENT NAME]"
 format:
   html:
@@ -46,25 +46,32 @@ con = sqlite3.connect(sqlite_file)
 
 ## QUESTION 1
 
-__Write an SQL query to create a new dataframe about baseball players who attended BYU-Idaho. The new table should contain five columns: playerID, schoolID, salary, and the yearID/teamID associated with each salary. Order the table by salary (highest to lowest) and print out the table in your report.__
+__Write an SQL query that pulls in the batting average table. Then, with Python Pandas code create a dataframe that contains playerID, yearID, and batting average for players with at least 10 at bat that year. Sort the dataframe from highest batting average to lowest, and then by playerid alphabetically. Show the top 5 results in your report.__
 
 _type your results and analysis here_
 
 ```{python}
-# Include and execute your code here
+# Execute an SQL query to pull in the data
+q = """SELECT *
+        FROM batting
+    """
+df_batting = pd.read_sql_query(q, con)
+```
+
+```{python}
+# Now use pandas code to work with the 'df_batting' data frame and complete the task
 
 
 ```
 
-
 ## QUESTION 2
 
-__Pick any two baseball teams and compare them using a metric of your choice (average salary, home runs, number of wins, etc). Be creative! Write an SQL query to get the data you need, then make a graph using Lets-Plot to visualize the comparison. What do you learn?__ 
+__Now use Python Pandas to calculate the batting average for players over their entire careers (all years combined). Only include players with at least 100 at bats over their entire career, and print the top 5 results.__
 
-_type your results and analysis here_
+_Describe your results and analysis here_
 
 ```{python}
-# Include and execute your code here
+# Include and execute your pandas code code here. (You already read in the batting table in Question 1)
 
 
 ```

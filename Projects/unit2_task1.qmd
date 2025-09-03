@@ -48,6 +48,9 @@ Review the set-up instructions in preparation for class.
 
 [SQLite](/Setup/sql_setup.qmd) 
 
+Here is some introduction to working with databases in Python
+
+- [P4DS: CH24.1-24.3, and 24.7 Databases](https://aeturrell.github.io/python4DS/databases.html#introduction)
 
 There are many [flavors of SQL](https://en.wikipedia.org/wiki/Database#Database_management_system) but most flavors have the same base commands. SQL queries are typed in the following pattern;
 

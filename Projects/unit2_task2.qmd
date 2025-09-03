@@ -1,5 +1,5 @@
 ---
-title: "Unit 2 Task 2: BYU-I Players and Comparing Teams"
+title: "Unit 2 Task 3: Validation"
 date: 2025-04-02T11:02:05+06:00
 lastmod: 2025-04-02T10:42:26+06:00
 weight: 4
@@ -10,14 +10,18 @@ keywords: [""]
 
 ### Background
 
-When you hear the word “relationship” what is the first thing that comes to mind? Probably not baseball. But a relationship is simply a way to describe how two or more objects are connected. There are many relationships in baseball such as those between teams and managers, players and salaries, even stadiums and concession prices. 
+How do you know if you have correctly programmed a query or an analysis? The process of confirming that your analysis or dataset is "correct" is called validation. 
 
-The graphs on [Data Visualizations from Best Tickets](https://web.archive.org/web/20200804101201/http://www.besttickets.com/blog/mlb-players-census/) show many other relationships that exist in baseball.
+Imagine you are new on the job and received the assignment to run queries on a baseball dataset. Confirming you did things correctly is a good idea before presenting your data to others and letting them discover your mistake. Or maybe, it isn't a matter of you doing something wrong as just a realization that the data source is flawed. Making that discovery is very important and makes you look really good; as opposed to someone else discovering it later - which can be a big hit to your credibility.
+
+Consider all the various ways you might want to validate the query results. One way to validate, though certainly not the only way and not necessarily the best way, is to try to accomplish the same task in a different system or language. That's the purpose of this assignment.
+
+This assignment may also help you connect how data wrangling is done in Python with a language you are already familiar with (SQL).
 
 
 ### Client Request
 
-For this project, the Client wants you to use SQL queries called from within Python. Then, save the query results and use use Lets-Plot charts to visualize the results.
+For this project, you will validate the assignments you have done previously, but this time using Python pandas code instead of complicated SQL queries. You will still need to connect to the database to pull the data in, but all the filtering, calculating, joining, etc. should be done with Python pandas (or polars). 
 
 
 ### Data
@@ -39,34 +43,17 @@ Complete these readings before we cover the material in class. This will help yo
 In other words, if an assignment is due on Wednesday, we will cover the material needed to complete the assignment on Tuesday. Therefore, you should complete the readings on Monday (or anytime before class on Tuesday).
 :::
 
-There are many [flavors of SQL](https://en.wikipedia.org/wiki/Database#Database_management_system) but most flavors have the same base commands. SQL queries are typed in the following pattern;
+- __[P4DS: CH4 Data Transformation]__(https://aeturrell.github.io/python4DS/data-transform.html#) 
 
-```SQL
-SELECT -- <columns> and <column calculations>
-FROM -- <table name>
-  JOIN -- <table name>
-  ON -- <columns to join>
-WHERE -- <filter condition on rows>
-GROUP BY -- <subsets for column calculations>
-HAVING -- <filter conditions on groups>
-ORDER BY -- <how the output is returned in sequence>
-LIMIT -- <number of rows to return>
-```
 
-The reading for this task come from the Intermediate section of this excellent [SQL Guide](https://docs.data.world/documentation/sql/concepts/basic/intro.html). Read the following for this task:
-
-   
-- [Joins](https://docs.data.world/documentation/sql/concepts/intermediate/Joins.html)
-- [CASE](https://docs.data.world/documentation/sql/concepts/intermediate/CASE.html)
-- [IN and NOT IN](https://docs.data.world/documentation/sql/concepts/intermediate/IN_and_NOT_IN.html)
 
 ### Questions and Tasks
 
-Download the [Unit 2 Task 2 Template](../Templates/unit2_task2_template.qmd).
+Download the [template for this task](../Templates/unit2_task2_template.qmd).
 
-1. __Write an SQL query to create a new dataframe about baseball players who attended BYU-Idaho. The new table should contain five columns: playerID, schoolID, salary, and the yearID/teamID associated with each salary. Order the table by salary (highest to lowest) and print out the table in your report.__
+1. __Write an SQL query that pulls in the batting table. Then, with Python Pandas code create a dataframe that contains playerID, yearID, and batting average for players with at least 10 at bat that year. Sort the dataframe from highest batting average to lowest, and then by playerid alphabetically. Show the top 5 results in your report.__
 
-1. __Pick any two baseball teams and compare them using a metric of your choice (average salary, home runs, number of wins, etc). Be creative! Write an SQL query to get the data you need, then make a graph using Lets-Plot to visualize the comparison. What do you learn?__ 
+1. __Write an SQL query that pulls in the batting table. Then, with Python Pandas calculate the batting average for players over their entire careers (all years combined). Only include players with at least 100 at bats over their entire career. Sort the dataframe from highest batting average to lowest, and then by playerid alphabetically. Show the top 5 results in your report.__
 
 
 ### Submission:
@@ -93,7 +80,7 @@ When you have completed the report, you will need to follow this process to subm
 
 ### Deliverables:
 
-_Use this [unit2_task2_template](../Templates/unit2_task2_template.qmd) to submit your Client Report._
+_Use this [task's template](../Templates/unit2_task2_template.qmd) to submit your Client Report._
 
 Answers to the questions | tasks. Each should include a written description of your results, code cells with comments, charts and/or tables.
 
