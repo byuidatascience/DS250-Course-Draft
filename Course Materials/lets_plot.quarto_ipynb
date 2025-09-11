@@ -1,0 +1,309 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: \"Data Visualization with Lets Plot\"\n",
+        "date: 2020-05-01T11:02:05+06:00\n",
+        "lastmod: 2020-09-15T10:42:26+06:00\n",
+        "weight: 4\n",
+        "draft: false\n",
+        "# search related keywords\n",
+        "keywords: [\"\"]\n",
+        "---\n",
+        "\n",
+        "### Introduction\n",
+        "\n",
+        "> “The simple graph has brought more information to the data analyst’s mind than any other device.” — John Tukey\n",
+        "\n",
+        "This chapter introudces data visualization with the Lets Plot library.  We briefly discus the **grammar of graphics** which is a useful paradigm for understanding the fundamentals of building graphs.  Then we introudce the basics of Lets Plot and provide resources for further development.\n",
+        "\n",
+        "\n",
+        "### Prerequisites\n",
+        "\n",
+        "[Lets Plot Install](/Setup/python_lib.qmd.qmd)\n",
+        "\n",
+        "For a slightly more interesting introduction, let's look at the penguins dataset built into the lets_plot data library.  This dataset contains measurements on species of penguins.\n",
+        "\n",
+        "::: {.callout-caution, collapse=\"false\"}\n",
+        "#### Caution\n",
+        "R has a package that uses `ggplot` and there is also another Python library `plotnine` that uses the same `ggplot` syntax. If you don't specify `lets_plot` when using ChatGPT, you may be led down the wrong code path. It is recommended you only use the ChatGPT that was designed for this course.\n",
+        ":::\n",
+        "\n",
+        "First, load the data by calling `load_penguins` from the `palmerpenguins` library as follows:"
+      ],
+      "id": "278f1b0e"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "import pandas as pd\n",
+        "import numpy as np\n",
+        "from lets_plot import *\n",
+        "from palmerpenguins import load_penguins\n",
+        "\n",
+        "LetsPlot.setup_html()\n",
+        "\n",
+        "data = load_penguins()"
+      ],
+      "id": "e1fa0f7e",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "To explore the relationship between bill length and bill depth, we can start with a basic scatterplot.    \n"
+      ],
+      "id": "b2394344"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# sometime you have to run this cell twice to get the plot to show\n",
+        "(\n",
+        "    ggplot(data) \n",
+        "    + geom_point(aes(x='bill_length_mm', y='bill_depth_mm'), color='blue') \n",
+        "    + ggtitle(\"The relationship between bill length and bill depth\")\n",
+        ")"
+      ],
+      "id": "43e556ed",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "When all species are lumped together in this scatterplot it doesn't look like there is much of a relationship between the bill length and bill depth. We can improve our visualization by coloring the points based on species.\n"
+      ],
+      "id": "65c0e187"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "(\n",
+        "    ggplot(data) \n",
+        "    + geom_point(aes(x='bill_length_mm', y='bill_depth_mm', color='species')) \n",
+        "    + ggtitle(\"The relationship between bill length and bill depth by species\")\n",
+        ")"
+      ],
+      "id": "a72671a4",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "We can also easily change the shape and size of the points in a scatterplot. "
+      ],
+      "id": "0e70dc1d"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "(\n",
+        "    ggplot(data) \n",
+        "    + geom_point(aes(x='bill_length_mm', y='bill_depth_mm', color='species', shape='species', size='flipper_length_mm')) \n",
+        "    + ggtitle(\"The relationship between bill length and bill depth by species with flipper length as size\")\n",
+        ")"
+      ],
+      "id": "619e7268",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Now that's going overboard! But hopefully the basic syntax for using `lets_plot` makes sense.  \n",
+        "\n",
+        "### Making Lets-Plot More Presentable\n",
+        "\n",
+        "In this section, we look at how to customize charts to be more informative and presentable.  For example, column names in a dataset are rarely a good idea to present to someone not as intimately familiar with the data as you.  We may also wish to highlight certain points, or draw attention to areas on a graph.  \n",
+        "\n",
+        "To begin, let's return to a reasonable visualization of the penguins data. We will start by naming our `ggplot` chart object \"plot\" and changing the X and Y axis labels.\n",
+        "\n",
+        "The way is to include the `labs` function in the plot inputs. The arguments in this function are the axis names and their desired labels.\n"
+      ],
+      "id": "06339383"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "plot = (\n",
+        "    ggplot(data)\n",
+        "    + geom_point(aes(x='bill_length_mm', y='bill_depth_mm', color='species', shape='species', size='flipper_length_mm'))\n",
+        "    + ggtitle(\"The relationship between bill length and bill depth by species with flipper length as size\")\n",
+        "    + labs(x='Bill Length (mm)', y='Bill Depth (mm)', color='Species', shape='Species', size='Flipper Length (mm)')\n",
+        ")\n",
+        "\n",
+        "plot"
+      ],
+      "id": "6adb3eb6",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "The next method makes the same adjustments but modifies the chart \"post hoc\". Start with a very basic chart, \"plot\" and use the `+` operator to add layers and modify titles."
+      ],
+      "id": "ff5a216e"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "plot = (\n",
+        "    ggplot(data)\n",
+        "    + geom_point(aes(x='bill_length_mm', y='bill_depth_mm', color='species', shape='species', size='flipper_length_mm'))\n",
+        "    + ggtitle(\"The relationship between bill length and bill depth by species with flipper length as size\")\n",
+        ")\n",
+        "\n",
+        "plot = plot + labs(x='Bill Length (mm)', y='Bill Depth (mm)', color='Species', shape='Species', size='Flipper Length (mm)')\n",
+        "plot"
+      ],
+      "id": "d69efaa3",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "<br>\n",
+        "The 2 approaches above have the same outcome, but the latter example introduces a flexible `lets_plot` paradigm that can be extended to other chart additions and modifications. For example, if we want to add a reference line to \"plot\", we can use the `geom_hline()` function.\n",
+        "<br>"
+      ],
+      "id": "1ceed001"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "plot = plot + geom_hline(yintercept=7, linetype='dotted', color='black')\n",
+        "plot"
+      ],
+      "id": "53d01c11",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "We can add several different shapes, including circles, lines or rectanges using the `.add_shape()` method.  This method specifies what type of shape to add to the graph given a set of coordinates (x0, x1, y0, y1).  \".add_shape()\" can be used to draw reference lines as well, but still requires a all 4 coordinates.  \n",
+        "\n",
+        "Here is a simple example first:"
+      ],
+      "id": "c0e86e63"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Adds a horizontal line\n",
+        "import pandas as pd\n",
+        "from lets_plot import *\n",
+        "LetsPlot.setup_html()\n",
+        "\n",
+        "# Sample data with correct data types\n",
+        "data = {'x': [1.0, 2.0, 3.0, 4.0, 5.0], 'y': [5.0, 4.0, 3.0, 2.0, 1.0]}\n",
+        "df = pd.DataFrame(data)\n",
+        "\n",
+        "# Ensure data types are correct\n",
+        "df['x'] = df['x'].astype(float)\n",
+        "df['y'] = df['y'].astype(float)\n",
+        "\n",
+        "# Create scatter plot\n",
+        "plot = ggplot(df, aes('x', 'y')) + geom_point()\n",
+        "\n",
+        "# Add a rectangle shape using direct numeric values\n",
+        "plot += geom_rect(xmin=2.0, xmax=4.0, ymin=1.0, ymax=3.0, fill='red', alpha=0.3)\n",
+        "\n",
+        "# Display the plot\n",
+        "plot.show()"
+      ],
+      "id": "4e42d054",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Now here is it applied to our penguin data:"
+      ],
+      "id": "6d21630a"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Load the penguins dataset\n",
+        "penguins = load_penguins()\n",
+        "\n",
+        "# Create scatter plot\n",
+        "plot = (\n",
+        "    ggplot(penguins)\n",
+        "    + geom_point(aes(x='bill_length_mm', y='bill_depth_mm', color='species', shape='species', size='flipper_length_mm'))\n",
+        "    + ggtitle(\"The relationship between bill length and bill depth by species with flipper length as size\")\n",
+        ")\n",
+        "\n",
+        "# Add labels\n",
+        "plot = plot + labs(x='Bill Length (mm)', y='Bill Depth (mm)', color='Species', shape='Species', size='Flipper Length (mm)')\n",
+        "\n",
+        "# Add a rectangle shape using direct numeric values\n",
+        "plot += geom_rect(xmin=33.0, xmax=45.0, ymin=16.0, ymax=22.0, fill='red', alpha=0.3)\n",
+        "\n",
+        "# Display the plot\n",
+        "plot"
+      ],
+      "id": "9d648b17",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "The code above introduces the `geom_rect` features, it is not always necessary for every situation. But hopefully this gives a flavor of what can be done.  \n",
+        "\n",
+        "Notice also, that the `geom_` methods actually update `plot`. No need to overwrite the original object or create a new chart object for each modification.\n",
+        "\n",
+        "\n",
+        "### Other `geom_*`itions\n",
+        "\n",
+        "There are several other useful \"post hoc\" graph modifications that we only mention in this chapter. For further exploration, see [Lets-Plot Documentation](https://lets-plot.org/).\n",
+        "\n",
+        "Use `geom_text()` to add text annotations at specific locations. Update axes by using `scale_x_continuous()` or `scale_y_continuous()` which allows you to modify gridlines and add units of measure like \"%\" or \"$\". `geom_vline()` and `geom_hline()` allow you to add vertical or horizontal reference lines. The possibilities are almost endless!\n",
+        "\n",
+        "### Resources\n",
+        "\n",
+        "This page has introduced the basics of `lets_plot`, but we have only looked at a scatterplot. For links to further documentation and a whole gallery of `lets_plot` possibilities, see [Lets-Plot Documentation](https://lets-plot.org/).\n"
+      ],
+      "id": "c142795c"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "C:\\Users\\drp36\\AppData\\Local\\Programs\\Python\\Python312\\share\\jupyter\\kernels\\python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}

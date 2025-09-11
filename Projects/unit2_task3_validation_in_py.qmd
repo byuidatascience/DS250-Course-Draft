@@ -41,7 +41,7 @@ Complete these readings before we cover the material in class. This will help yo
 In other words, if an assignment is due on Wednesday, we will cover the material needed to complete the assignment on Tuesday. Therefore, you should complete the readings on Monday (or anytime before class on Tuesday).
 :::
 
-- __[P4DS: CH22 Joins]__(https://aeturrell.github.io/python4DS/joins.html)
+- [P4DS: CH22 Joins](https://aeturrell.github.io/python4DS/joins.html)
 
 *Optional*
 

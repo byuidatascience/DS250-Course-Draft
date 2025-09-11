@@ -43,7 +43,7 @@ Complete these readings before we cover the material in class. This will help yo
 In other words, if an assignment is due on Wednesday, we will cover the material needed to complete the assignment on Tuesday. Therefore, you should complete the readings on Monday (or anytime before class on Tuesday).
 :::
 
-- __[P4DS: CH4 Data Transformation]__(https://aeturrell.github.io/python4DS/data-transform.html#) 
+- [P4DS: CH4 Data Transformation](https://aeturrell.github.io/python4DS/data-transform.html#) 
 
 
 
