@@ -30,7 +30,7 @@ This is the preferred install method for both PC and Mac:
 #%%
 # copy paste this into a python file in vs code and run this cell
 import sys
-!{sys.executable} -m pip install numpy pandas scikit-learn lets-plot palmerpenguins nbformat nbclient pyyaml
+!{sys.executable} -m pip install numpy pandas scikit-learn lets-plot palmerpenguins nbformat nbclient pyyaml setuptools
 ```
 
 
@@ -38,7 +38,7 @@ import sys
 
 ```python
 # default way
-pip install numpy pandas scikit-learn lets-plot palmerpenguins nbformat nbclient pyyaml
+pip install numpy pandas scikit-learn lets-plot palmerpenguins nbformat nbclient pyyaml setuptools
 ```
 
 
