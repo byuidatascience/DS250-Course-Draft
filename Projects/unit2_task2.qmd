@@ -1,5 +1,5 @@
 ---
-title: "Unit 2 Task 3: Validation"
+title: "Unit 2 Task 2: Basic aggregation and wrangling"
 date: 2025-04-02T11:02:05+06:00
 lastmod: 2025-04-02T10:42:26+06:00
 weight: 4
@@ -53,7 +53,7 @@ Download the [template for this task](../Templates/unit2_task2_template.qmd).
 
 1. __Write an SQL query that pulls in the batting table. Then, with Python Pandas code create a dataframe that contains playerID, yearID, and batting average for players with at least 10 at bat that year. Sort the dataframe from highest batting average to lowest, and then by playerid alphabetically. Show the top 5 results in your report.__
 
-1. __Write an SQL query that pulls in the batting table. Then, with Python Pandas calculate the batting average for players over their entire careers (all years combined). Only include players with at least 100 at bats over their entire career. Sort the dataframe from highest batting average to lowest, and then by playerid alphabetically. Show the top 5 results in your report.__
+1. __Write an SQL query that pulls in the batting table. Then, with Python Pandas calculate the batting average for each player over their entire career (all years combined). Only include players with at least 100 at bats over their entire career. Sort the dataframe from highest batting average to lowest, and then by playerid alphabetically. Show the top 5 results in your report.__
 
 
 ### Submission:

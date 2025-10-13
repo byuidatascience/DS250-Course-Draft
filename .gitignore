@@ -5,3 +5,5 @@
 *.css
 **/Archive/
 /_Archived Items
+
+**/*.quarto_ipynb
