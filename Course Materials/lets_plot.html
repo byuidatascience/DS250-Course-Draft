@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -74,14 +74,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b651517ce65839d647a86e2780455cfb.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-650d5889e8e7cd949ef04baf9227d014.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-e9c74c6bb1052d15cfb92e3cc978a198.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-650d5889e8e7cd949ef04baf9227d014.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-47a2569239650a328465399e13938bea.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-52a40c8f424a6d1e268fe027cedb2c07.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-47a2569239650a328465399e13938bea.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -566,7 +566,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>For a slightly more interesting introduction, let’s look at the penguins dataset built into the lets_plot data library. This dataset contains measurements on species of penguins.</p>
 <p>::: {.callout-caution, collapse=“false”} #### Caution R has a package that uses <code>ggplot</code> and there is also another Python library <code>plotnine</code> that uses the same <code>ggplot</code> syntax. If you don’t specify <code>lets_plot</code> when using ChatGPT, you may be led down the wrong code path. It is recommended you only use the ChatGPT that was designed for this course. :::</p>
 <p>First, load the data by calling <code>load_penguins</code> from the <code>palmerpenguins</code> library as follows:</p>
-<div id="82725918" class="cell" data-execution_count="1">
+<div id="826f7451" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lets_plot <span class="im">import</span> <span class="op">*</span></span>
@@ -577,7 +577,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> load_penguins()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 
-            <div id="y6Xzwf"></div>
+            <div id="3MJqzU"></div>
             <script type="text/javascript" data-lets-plot-script="library">
                 if(!window.letsPlotCallQueue) {
                     window.letsPlotCallQueue = [];
@@ -601,9 +601,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                         var div = document.createElement("div");
                         div.style.color = 'darkred';
                         div.textContent = 'Error loading Lets-Plot JS';
-                        document.getElementById("y6Xzwf").appendChild(div);
+                        document.getElementById("3MJqzU").appendChild(div);
                     };
-                    var e = document.getElementById("y6Xzwf");
+                    var e = document.getElementById("3MJqzU");
                     e.appendChild(script);
                 })()
             </script>
@@ -611,7 +611,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>To explore the relationship between bill length and bill depth, we can start with a basic scatterplot.</p>
-<div id="13bb4d23" class="cell" data-execution_count="2">
+<div id="1a16799a" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sometime you have to run this cell twice to get the plot to show</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>(</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    ggplot(data) </span>
@@ -619,7 +619,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> ggtitle(<span class="st">"The relationship between bill length and bill depth"</span>)</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
-   <div id="A5iRz8"></div>
+   <div id="tOhbm4"></div>
    <script type="text/javascript" data-lets-plot-script="plot">
    
    (function() {
@@ -644,7 +644,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
        };
    }
    
-   const containerDiv = document.getElementById("A5iRz8");
+   const containerDiv = document.getElementById("tOhbm4");
    let fig = null;
    
    function renderPlot() {
@@ -747,14 +747,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>When all species are lumped together in this scatterplot it doesn’t look like there is much of a relationship between the bill length and bill depth. We can improve our visualization by coloring the points based on species.</p>
-<div id="302a16e5" class="cell" data-execution_count="3">
+<div id="f39babaa" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>(</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    ggplot(data) </span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_point(aes(x<span class="op">=</span><span class="st">'bill_length_mm'</span>, y<span class="op">=</span><span class="st">'bill_depth_mm'</span>, color<span class="op">=</span><span class="st">'species'</span>)) </span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> ggtitle(<span class="st">"The relationship between bill length and bill depth by species"</span>)</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
-   <div id="mj9bMg"></div>
+   <div id="PIV3wt"></div>
    <script type="text/javascript" data-lets-plot-script="plot">
    
    (function() {
@@ -779,7 +779,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
        };
    }
    
-   const containerDiv = document.getElementById("mj9bMg");
+   const containerDiv = document.getElementById("PIV3wt");
    let fig = null;
    
    function renderPlot() {
@@ -883,14 +883,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>We can also easily change the shape and size of the points in a scatterplot.</p>
-<div id="3950012f" class="cell" data-execution_count="4">
+<div id="9f148ccf" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    ggplot(data) </span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_point(aes(x<span class="op">=</span><span class="st">'bill_length_mm'</span>, y<span class="op">=</span><span class="st">'bill_depth_mm'</span>, color<span class="op">=</span><span class="st">'species'</span>, shape<span class="op">=</span><span class="st">'species'</span>, size<span class="op">=</span><span class="st">'flipper_length_mm'</span>)) </span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> ggtitle(<span class="st">"The relationship between bill length and bill depth by species with flipper length as size"</span>)</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
-   <div id="6bRhOZ"></div>
+   <div id="7cgkCJ"></div>
    <script type="text/javascript" data-lets-plot-script="plot">
    
    (function() {
@@ -915,7 +915,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
        };
    }
    
-   const containerDiv = document.getElementById("6bRhOZ");
+   const containerDiv = document.getElementById("7cgkCJ");
    let fig = null;
    
    function renderPlot() {
@@ -1028,7 +1028,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In this section, we look at how to customize charts to be more informative and presentable. For example, column names in a dataset are rarely a good idea to present to someone not as intimately familiar with the data as you. We may also wish to highlight certain points, or draw attention to areas on a graph.</p>
 <p>To begin, let’s return to a reasonable visualization of the penguins data. We will start by naming our <code>ggplot</code> chart object “plot” and changing the X and Y axis labels.</p>
 <p>The way is to include the <code>labs</code> function in the plot inputs. The arguments in this function are the axis names and their desired labels.</p>
-<div id="df5f70f0" class="cell" data-execution_count="5">
+<div id="bd976d13" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plot <span class="op">=</span> (</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    ggplot(data)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_point(aes(x<span class="op">=</span><span class="st">'bill_length_mm'</span>, y<span class="op">=</span><span class="st">'bill_depth_mm'</span>, color<span class="op">=</span><span class="st">'species'</span>, shape<span class="op">=</span><span class="st">'species'</span>, size<span class="op">=</span><span class="st">'flipper_length_mm'</span>))</span>
@@ -1038,7 +1038,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>plot</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
-   <div id="vBamyg"></div>
+   <div id="mitQog"></div>
    <script type="text/javascript" data-lets-plot-script="plot">
    
    (function() {
@@ -1063,7 +1063,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
        };
    }
    
-   const containerDiv = document.getElementById("vBamyg");
+   const containerDiv = document.getElementById("mitQog");
    let fig = null;
    
    function renderPlot() {
@@ -1187,7 +1187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>The next method makes the same adjustments but modifies the chart “post hoc”. Start with a very basic chart, “plot” and use the <code>+</code> operator to add layers and modify titles.</p>
-<div id="6e479299" class="cell" data-execution_count="6">
+<div id="98fcbe49" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plot <span class="op">=</span> (</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    ggplot(data)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> geom_point(aes(x<span class="op">=</span><span class="st">'bill_length_mm'</span>, y<span class="op">=</span><span class="st">'bill_depth_mm'</span>, color<span class="op">=</span><span class="st">'species'</span>, shape<span class="op">=</span><span class="st">'species'</span>, size<span class="op">=</span><span class="st">'flipper_length_mm'</span>))</span>
@@ -1197,7 +1197,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>plot <span class="op">=</span> plot <span class="op">+</span> labs(x<span class="op">=</span><span class="st">'Bill Length (mm)'</span>, y<span class="op">=</span><span class="st">'Bill Depth (mm)'</span>, color<span class="op">=</span><span class="st">'Species'</span>, shape<span class="op">=</span><span class="st">'Species'</span>, size<span class="op">=</span><span class="st">'Flipper Length (mm)'</span>)</span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>plot</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
-   <div id="rXC5fc"></div>
+   <div id="FqgynT"></div>
    <script type="text/javascript" data-lets-plot-script="plot">
    
    (function() {
@@ -1222,7 +1222,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
        };
    }
    
-   const containerDiv = document.getElementById("rXC5fc");
+   const containerDiv = document.getElementById("FqgynT");
    let fig = null;
    
    function renderPlot() {
@@ -1346,11 +1346,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p><br> The 2 approaches above have the same outcome, but the latter example introduces a flexible <code>lets_plot</code> paradigm that can be extended to other chart additions and modifications. For example, if we want to add a reference line to “plot”, we can use the <code>geom_hline()</code> function. <br></p>
-<div id="194601f7" class="cell" data-execution_count="7">
+<div id="d749010f" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>plot <span class="op">=</span> plot <span class="op">+</span> geom_hline(yintercept<span class="op">=</span><span class="dv">7</span>, linetype<span class="op">=</span><span class="st">'dotted'</span>, color<span class="op">=</span><span class="st">'black'</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>plot</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
-   <div id="vBeluW"></div>
+   <div id="3e9r1F"></div>
    <script type="text/javascript" data-lets-plot-script="plot">
    
    (function() {
@@ -1375,7 +1375,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
        };
    }
    
-   const containerDiv = document.getElementById("vBeluW");
+   const containerDiv = document.getElementById("3e9r1F");
    let fig = null;
    
    function renderPlot() {
@@ -1511,7 +1511,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>We can add several different shapes, including circles, lines or rectanges using the <code>.add_shape()</code> method. This method specifies what type of shape to add to the graph given a set of coordinates (x0, x1, y0, y1). “.add_shape()” can be used to draw reference lines as well, but still requires a all 4 coordinates.</p>
 <p>Here is a simple example first:</p>
-<div id="6c3c58af" class="cell" data-execution_count="8">
+<div id="deccae1e" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Adds a horizontal line</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> lets_plot <span class="im">import</span> <span class="op">*</span></span>
@@ -1535,7 +1535,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>plot.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 
-            <div id="wkDehl"></div>
+            <div id="7eZwGQ"></div>
             <script type="text/javascript" data-lets-plot-script="library">
                 if(!window.letsPlotCallQueue) {
                     window.letsPlotCallQueue = [];
@@ -1559,16 +1559,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
                         var div = document.createElement("div");
                         div.style.color = 'darkred';
                         div.textContent = 'Error loading Lets-Plot JS';
-                        document.getElementById("wkDehl").appendChild(div);
+                        document.getElementById("7eZwGQ").appendChild(div);
                     };
-                    var e = document.getElementById("wkDehl");
+                    var e = document.getElementById("7eZwGQ");
                     e.appendChild(script);
                 })()
             </script>
             
 </div>
 <div class="cell-output cell-output-display">
-   <div id="2pjWAs"></div>
+   <div id="rttsD8"></div>
    <script type="text/javascript" data-lets-plot-script="plot">
    
    (function() {
@@ -1593,7 +1593,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
        };
    }
    
-   const containerDiv = document.getElementById("2pjWAs");
+   const containerDiv = document.getElementById("rttsD8");
    let fig = null;
    
    function renderPlot() {
@@ -1688,7 +1688,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Now here is it applied to our penguin data:</p>
-<div id="d67a4cb1" class="cell" data-execution_count="9">
+<div id="03706e98" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the penguins dataset</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>penguins <span class="op">=</span> load_penguins()</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1708,7 +1708,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the plot</span></span>
 <span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>plot</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
-   <div id="OnkjnN"></div>
+   <div id="75NZ2x"></div>
    <script type="text/javascript" data-lets-plot-script="plot">
    
    (function() {
@@ -1733,7 +1733,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
        };
    }
    
-   const containerDiv = document.getElementById("OnkjnN");
+   const containerDiv = document.getElementById("75NZ2x");
    let fig = null;
    
    function renderPlot() {
