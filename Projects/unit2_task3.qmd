@@ -17,7 +17,7 @@ The graphs on [Data Visualizations from Best Tickets](https://web.archive.org/we
 
 ### Client Request
 
-For this project, the Client wants SQL queries that they can use to retrieve data for use on their website without needing Python. They would also like to see the results in Lets-Plot charts.
+For this project, the Client wants SQL queries that they can use to retrieve data, then work with the data in pandas.  They would also like to see the results in Lets-Plot charts.
 
 
 ### Data
@@ -46,7 +46,7 @@ In other words, if an assignment is due on Wednesday, we will cover the material
 
 Download the [the template for this task](../Templates/unit2_task3_template.qmd).
 
-1. Identify the top 10 players with the longest careers. Include their:
+1. Identify the top 10 players with the longest Major League Baseball careers. Include their:
 
     - playerID
     - first_name
