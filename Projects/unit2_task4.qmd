@@ -17,7 +17,7 @@ The graphs on [Data Visualizations from Best Tickets](https://web.archive.org/we
 
 ### Client Request
 
-For this project, the Client wants SQL queries that they can use to retrieve data for use on their website without needing Python. They would also like to see the results in Lets-Plot charts.
+For this project, the Client wants SQL queries that they can use to retrieve data, then work with the data in pandas.  They would also like to see the results in Lets-Plot charts.
 
 
 ### Data
