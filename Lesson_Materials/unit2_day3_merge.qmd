@@ -1,0 +1,208 @@
+---
+title: "Untitled"
+format: html
+---
+
+Use the PowerPoint slides to illustrate the concept of left, right, inner, and outer joins
+
+```{python}
+import pandas as pd 
+import numpy as np
+import sqlite3
+from lets_plot import *
+
+LetsPlot.setup_html(isolated_frame=True)
+```
+```{python}
+# Learn morea about Code Cells: https://quarto.org/docs/reference/cells/cells-jupyter.html
+
+# Include and execute your code here
+sqlite_file = 'lahmansbaseballdb.sqlite'
+# this file must be in the same location as your .qmd or .py file
+con = sqlite3.connect(sqlite_file)
+```
+
+We are going to find schools that exist in the same town as a MLB park
+
+```{python}
+q = """SELECT *
+    FROM parks
+    """
+parks = pd.read_sql_query(q, con)
+
+```
+
+```{python}
+q = """SELECT *
+    FROM schools
+    """
+schools = pd.read_sql_query(q, con)
+
+```
+
+
+```{python}
+pd.merge(parks, schools, how = "left") #notice, if I don't specify, it matches every column that is identically named. This can be very convenient, but also dangerous.
+```
+
+It's not making sense, it's saying there are no schools in LA?! I know that's wrong.
+
+```{python}
+pd.merge(parks, schools, how = "left").query('city == "Los Angeles"')
+```
+
+It's not making sense: i see 3 parks in Los Angeles and 8 schools. But in my merge I'm getting no schools data, just the parks
+```{python}
+schools.query('city == "Los Angeles"')
+parks.query('city == "Los Angeles"')
+```
+
+I'll try this again, but this time specify the "on" argument
+
+```{python}
+pd.merge(parks, schools, on = ['city'], how = "left")
+```
+
+Scroll through column names, now state and country have a suffix. Did that fix the problem...not entirely. What about Albany? There are 3 different schools in an Albany for 3 different states. Can we match on city and state?
+
+After running the above, can you see where the problem was. Point out this common problem "gotcha".
+
+Point out how/why it assigns the suffix "_x" and "_y" to identically named columns that weren't part of the matching/merging.
+
+```{python}
+(
+pd.merge(parks, schools, on = ['city', 'state'], how = "left")
+#verify the Albany problem is fixed, now let's check Los Angeles again
+  .query('city == "Los Angeles"')
+)
+```
+
+ Look at this beautiful example of a cartesian product! This is fine in our case, but this can sometimes be a surprise if we thought we were working with a unique key.
+
+Return to slides to show this phenomenon and talk about inner and outer joins.
+
+...
+
+Outer Join: scroll through result and show some cities with stadiums that don't have a college (i.e. Anaheim) and many cities with colleges but no MLB stadium
+
+```{python}
+pd.merge(parks, schools, on = ['city', 'state'], how = "outer")
+```
+
+```{python}
+pd.merge(parks, schools, on = ['city', 'state'], how = "inner")
+```
+
+
+# My code for the task
+
+Write an SQL query that pulls in the the salaries table and the collegeplaying table (and any other tables you might need) and store them in pandas dataframes. Combine the dataframes to create a list of baseball players who attended BYU-Idaho. The new table should contain five columns: playerID, schoolID, salary, and the yearID and teamID associated with each salary.
+
+
+```{python}
+q = """SELECT *
+    FROM collegeplaying
+    """
+college = pd.read_sql_query(q, con)
+
+s = """SELECT *
+    FROM salaries """
+salaries = pd.read_sql_query(s, con)
+
+sc = """SELECT *
+    FROM schools
+    """
+schools = pd.read_sql_query(q, con)
+```
+
+Use the SQLiteViewer to filter schools on name_full for "Brigham" and discover the schoolID is idbyuid
+
+```{python}
+college.query('schoolID == "idbyuid"').drop_duplicates(subset = "playerID").merge(salaries, on = "playerID", how = "inner").filter(["playerID", "schoolID", "yearID_y", "teamID", "salary"])
+```
+
+## P2new_day4 LONGEVITY
+
+One way to measure career length is to compare their debut to their final appearance
+```{python}
+p = """SELECT playerID, debut, finalGame, debut_date, finalgame_date, nameLast, nameFirst, nameGiven
+    FROM people
+    """
+people = pd.read_sql_query(p, con)
+
+people['debut_dt'] = pd.to_datetime(people['debut'])
+people['final_game_dt'] = pd.to_datetime(people['finalGame'])
+```
+
+A simple google search reveals that Nick Alrock continued as a coach/manager which seems to be counted here. Likwise, Jim O'Rourke took gaps in his major league career, but all the time is counted here.
+```{python}
+people['length_days'] = people['final_game_dt'] - people['debut_dt']
+people['length_yrs'] = people['length_days'].dt.days / 365.25
+
+people.sort_values('length_yrs', ascending = False ).filter(['playerID','nameGiven', 'nameLast', 'length_yrs', 'final_game_dt']).head(10)
+
+```
+
+So maybe another way to do this is to count the seasons that they played in. We can do this from the appearances column. I can count how many times a particular playerID shows up. Then I can merge with people table to get their full name.
+
+```{python}
+
+a = """SELECT playerID, yearID
+    FROM appearances
+    """
+appearances = pd.read_sql_query(a, con)
+```
+
+
+```{python}
+(
+appearances
+    .groupby('playerID')
+    .aggregate(seasons = ('yearID', 'size'))
+    .sort_values('seasons', ascending = False)
+    .merge(people, on = 'playerID', how = 'left')
+    .filter(['playerID', 'seasons', 'nameGiven', 'nameFirst','nameLast', 'length_yrs', 'debut_dt', 'final_game_dt'])
+)
+```
+
+This yielded weird results as well. Now, some players have more "seasons" then years between the debut and final game. With some digging, you quickly realize that there is a row for every team they played for every year. Deacon McGuire (mcguide01) is a good example in 1888 he has 3 rows.
+
+So, I first need to drop duplicate years from the dataset.
+
+```{python}
+appearances
+```
+
+```{python}
+(
+appearances
+    .drop_duplicates(subset = ['yearID', 'playerID'])
+    .groupby('playerID')
+    .aggregate(seasons = ('yearID', 'size'))
+    .sort_values('seasons', ascending = False)
+    .merge(people, on = 'playerID', how = 'left')
+    .filter(['playerID', 'seasons', 'nameGiven', 'nameFirst','nameLast', 'length_yrs', 'debut_dt', 'final_game_dt'])
+)
+```
+
+A similar approach using the salaries table instead yields problems because apparently salaries were not tracked before 1985.
+
+```{python}
+
+sal = """SELECT playerID, yearID
+    FROM salaries
+    """
+salary = pd.read_sql_query(sal, con)
+```
+
+```{python}
+(
+salary
+    #.drop_duplicates(subset = ['yearID', 'playerID'])
+    .groupby('playerID')
+    .aggregate(seasons = ('yearID', 'size'))
+    .sort_values('seasons', ascending = False)
+    .merge(people, on = 'playerID', how = 'left')
+    .filter(['playerID', 'seasons', 'nameGiven', 'nameFirst','nameLast', 'length_yrs', 'debut_dt', 'final_game_dt'])
+)
+```

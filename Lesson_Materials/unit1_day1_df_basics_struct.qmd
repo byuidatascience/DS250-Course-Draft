@@ -1,0 +1,255 @@
+---
+title: "Untitled"
+format: html
+---
+
+This is text!
+
+# Header
+
+## sub-header
+
+### sub-sub header
+
+__This bold text!__ 
+
+_This italic text_
+
+```{python}
+import pandas as pd
+import numpy as np
+from lets_plot import *
+
+LetsPlot.setup_html(isolated_frame=True)
+```
+
+Code:
+
+We don't source the python scripts, instead we us an interactive way of running each code cell. Run a cell inidividually to it's results. (Note each file will have a different interactive viewer)
+```{python}
+
+print("hello world")
+```
+
+Use `ctrl + shift + i` to create a new cell.
+```{python}
+# A calculation
+x = 2 + 2
+print(x)
+```
+
+You may want to take notes on the reading in a file like this!
+
+Create a folder for this class on your computer...then go to the explorer in VS code and "open folder"
+
+Save this file in that folder. Then try to preview!
+###################################
+
+# Pause: can you explain what this code is doing? Maybe skip this
+
+```{python}
+df = pd.DataFrame(
+{"a" : [5, 4, 6, 2, 3],
+"b" : [7, 8, 9, 10, 11],
+"c" : [10, 11, 12, 101, 0]})
+
+df
+```
+
+Can you tell what this code is doing?
+
+```{python}
+df = pd.DataFrame(
+{"a" : [5, 4, 6, 2, 3],
+"b" : [7, 8, 9, 10, 11],
+"c" : [10, 11, 12, 101, 0]},
+index = [1,2,3,4,5])
+
+df
+```
+
+```{python}
+df = pd.DataFrame(
+[[5, 4, 6, 2, 3],
+[7, 8, 9, 10, 11],
+[10, 11, 12, 101, 0]],
+index = ["a","b","c"],
+columns = ["first", "second", "third", "fourth", "fifth"])
+
+df
+```
+
+
+
+# Read in data
+
+Reading in the life expectancy data used at the end of CSE110
+
+Just copy in the header from the project template :)
+```{python}
+import pandas as pd 
+
+url = "https://byui-cse.github.io/cse110-course/lesson11/life-expectancy.csv"
+df = pd.read_csv(url)
+```
+
+## If students get an error...
+
+I'll just send them a copy of the data, or 
+
+many of them had trouble reading in the data directly from the internet due to an SSL certification verification error. The work around was to download the data to your computer and download it. Here is a more elegant/permanent solution that will allow you to directly read in the data from the web.
+
+__be sure to run `pip install requests` in your terminal first. Then you can run this code in a python cell:__
+
+```{python}
+#| eval: false
+import pandas as pd 
+import requests 
+from io import StringIO 
+
+
+url = "https://byui-cse.github.io/cse110-course/lesson11/life-expectancy.csv"
+
+# Disable SSL verification 
+response = requests.get(url, verify=False) 
+data = StringIO(response.text) 
+
+# Read the CSV into a DataFrame 
+df = pd.read_csv(data)
+#%%
+import numpy as np
+import pandas as pd
+from lets_plot import *
+LetsPlot.setup_html(isolated_frame=True)
+# df = pd.read_csv("life-expectancy.csv")
+df.columns = ['Entity', 'Code', 'Year', 'Life']
+```
+
+Alternatively, if you don't want to bypass the certificate verification you could try this if the certificates are actually there and up to date:
+
+```{python}
+#| eval: false
+import pandas as pd 
+import requests 
+from io import StringIO 
+
+url = "https://byui-cse.github.io/cse110-course/lesson11/life-expectancy.csv"
+
+# Download the file
+response = requests.get(url)
+response.raise_for_status()  # Check if the request was successful
+data = StringIO(response.text)
+
+# Read the CSV into a DataFrame 
+df = pd.read_csv(data)
+
+```
+
+
+# Now that the data is read in
+
+Draw a cartoon and explain a pandas dataframe. axis 0 is horiaontal, axis 1 is the rows
+The row index is technically not a column in the dataset
+
+
+You should be able to introduce your data to someone else. What does each row represent? If you don’t know, then you don’t understand what groups you can analyze.
+
+What does each column represent? If you don’t know, then you don’t understand what information you can evaluate for each group.
+
+
+## Getting to know your data
+
+**This section is less important and could be skipped in grand part. Instead teach them how to use the Data Wrangler extension in VSCode to see their data and work with it there.**
+
+
+```{python}
+df.columns
+df.shape
+df.size
+df.head()
+df.describe()
+```
+
+How many unique countries exist?
+What is the range of years?
+Use cheat sheet if that will be helpful!
+
+https://pandas.pydata.org/Pandas_Cheat_Sheet.pdf
+
+# Subset parts of your data
+
+## Single bracket
+
+
+```{python}
+df['Entity']
+df[['Entity', 'Code', 'Year']]
+df[0:3] #uses axis 0 by default, this is called slice
+df[['Entity', 'Code', 'Year']][0:3]
+```
+
+## Use a period to reference attributes of an object
+
+In this case, a column is considered an attribute of a dataset and it works because it has names
+
+```{python}
+df.Entity.head()
+df.Year[0:3]
+```
+
+## Subset rows and columns simultaneously
+
+### using loc
+
+`loc` uses names to refer to indices
+```{python}
+df.loc[11:21,'Year'] #Using year's column number won't work
+df.loc[11:21,['Life','Year']] #Note the reorder of the columns
+```
+
+### Using iloc  
+`iloc` refers to things by their index number
+
+```{python}
+df.iloc[20:30, [1,3]] #Use of slicing and lists
+df.iloc[:4, [1,3]]
+df.iloc[:4, :] # Use a colon to include them all
+df.iloc[-2:, [1,3]] #can use negatives for columns too
+```
+
+## Getting a certain set of rows based on conditions
+
+You can use the square bracket approach
+```{python}
+df[df['Entity'] == "Afghanistan"] # Creates a sequence of trues and falses
+```
+
+The pandas command `query` is another (often cleaner) approach
+
+```{python}
+df.query('Entity == "France" ')
+```
+
+COMPARE: As conditions get more complicated, query looks more attractive
+```{python}
+three = (df.query('Entity == ["France", "United States", "Japan"]')
+           .value_counts('Entity'))
+# df[df['Entity'].isin(["France", "United States", "Japan"])]
+```
+
+### Not operator
+
+```{python}
+df.query('Entity != "Zimbabwe" ')
+```
+
+
+```{python}
+#### run after each period
+df.sort_values("Entity", ascending = False).Life.mean()
+#point out difference between attributes and functions
+
+df.Entity.value_counts() #I use this a lot
+df.Entity.unique()
+df.sort_values("Entity", ascending=False).head(2).Life.mean()
+```

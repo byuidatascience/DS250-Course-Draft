@@ -1,0 +1,91 @@
+---
+title: "Unit 2, Task 2: Basic Data Wrangling in Pandas"
+format: html
+---
+
+
+This is what I did most recently, but I think I should choose a different example, probably pick a table from the baseball dataset and analyze it for better continuity. Switching the UFO dataset seemed a bit too out there.
+
+Main goal is to have them learn basic skills which they will need for the task: groupby, aggregate, and maybe (optional) assign. Certainly sort_values and query are good to review.
+
+In the next iteration, I would recommend teaching how to create a new column first. Then how to aggregate over the entire dataset, then how to group before aggregating. 
+
+```{python}
+#import sys
+#!{sys.executable} -m pip install requests
+# %%
+# The usuals
+import pandas as pd
+import numpy as np
+from lets_plot import *
+LetsPlot.setup_html(isolated_frame=True)
+```
+
+```{python}
+# %%
+# UFO Sightings
+url = "https://byuistats.github.io/DS250-Course/Skill%20Builders/json_missing.json"
+df2 = pd.read_json(url)
+df2
+```
+
+Let's calculate summary statistics about the UFO size by its shape.
+
+```{python}
+df_skew = (
+df2.groupby('shape_reported')
+   .aggregate(med_size = ('estimated_size', 'median'),
+              mean_size = ('estimated_size', 'mean'),
+              how_many = ('shape_reported', 'size'))
+
+).reset_index()
+
+df_skew.info()
+```
+
+## Adding columns
+
+### 'old fashioned' basic python using square brackets
+
+```{python}
+df_skew['skew'] = np.where(df_skew.med_size > df_skew.mean_size, 'left_skew', 'right_skew')
+df_skew
+
+```
+
+### pandas .assign() mewthod
+
+
+```{python}
+df_last = (
+df_skew.assign(med_size_ft = df_skew.med_size / 144,
+               mean_size_ft = df_skew.mean_size / 144,
+               )
+        .assign(
+                div_by_10 = lambda banana: banana['mean_size_ft'] / 10
+               )
+)
+
+df_last.info()
+```
+
+## Let'ss the dataset
+
+
+Plot of median size for each shape, barplot
+```{python}
+(
+ggplot(data = df_last.sort_values('med_size', ascending = False )
+                     .query('shape_reported != "CIRCLE"')) 
+   + geom_bar(aes(y = 'med_size', x = 'shape_reported'), stat = 'identity')
+)
+```
+
+create my own factor variable to determine levels
+
+
+```{python}
+mycategories = ['CIGAR', 'CYLINDER', 'DISK', 'OVAL', 'RECTANGLE', 'SPHERE', 'TRIANGLE', 'FIREBALL', 'FLASH', 'FORMATION', 'LIGHT', 'OTHER']
+
+df_last['shape_cat'] = pd
+```

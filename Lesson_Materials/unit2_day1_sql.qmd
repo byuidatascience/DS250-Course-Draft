@@ -1,0 +1,553 @@
+---
+title: "Untitled"
+format: html
+---
+
+Here are the things we need to cover:
+
+-  saving the database in the same directory so that we can access it. importing the sqlite3 library, and just testing to make sure we can get access to lahmansbaseballdb.sqlite.
+-  running sql in python. using q = ``` ```, then pd.read_sql_query(q, con), where con = sqlite3.connect(sqlite_file)
+-  select *, as well as specific columns
+    -  aliases in the select column
+    -  calculations in the column: COUNT, DISTINCT, Sum, average, other/custom including division with integers...https://datalemur.com/sql-tutorial/sql-division
+        - cast(10 AS DECIMAL), CAST(10 AS FLOAT), 
+        - Multiplying by 1.0
+        - explicitly request ::FLOAT or ::DECIMAL. (including round, and converting an integer to a float to when calculating an average for example)
+
+-  FROM
+-  LIMIT
+- ORDER BY: DESC and by multiple columns
+- wHERE: operands and wildcards % and _ for text
+
+time permitting I would also like to cover
+
+GROUP BY: grouping by multiple columns
+HAVING: point out how HAVING is different from WHERE
+
+## SELECT AND FROM
+```{python}
+import pandas as pd 
+import numpy as np
+import sqlite3
+from lets_plot import *
+
+LetsPlot.setup_html(isolated_frame=True)
+```
+```{python}
+# Learn morea about Code Cells: https://quarto.org/docs/reference/cells/cells-jupyter.html
+
+# Include and execute your code here
+sqlite_file = 'lahmansbaseballdb.sqlite'
+# this file must be in the same location as your .qmd or .py file
+con = sqlite3.connect(sqlite_file)
+```
+
+We are going to focus primarily on the managers table to illustrate things like games played and won by a manager
+
+```{python}
+q = """SELECT *
+    FROM managers
+    """
+results = pd.read_sql_query(q, con)
+results
+
+```
+
+NOTE THIS WRONG, INTEGER DIVISION PROBLEM
+```{python}
+q = """SELECT playerID,
+              G AS 'Games managed',
+              W AS 'Wins',
+              L AS 'Losses',
+              (W / G) AS 'Win %'
+    FROM managers
+    """
+results = pd.read_sql_query(q, con)
+results
+```
+
+FIXED IT!
+```{python}
+q = """SELECT playerID,
+              G AS 'Games managed',
+              W AS 'Wins',
+              L AS 'Losses',
+              (W*1.0 / G) AS 'Win %',
+              (W / G) * 1.0 AS 'Win %2',
+              (CAST(W AS FLOAT) / G) AS 'Win Perc1',
+              (W / CAST(G AS FLOAT)) AS 'Win Perc3',
+              CAST((W/G) AS FLOAT) AS 'Win Perc 4'
+              -- NOTE: Decimal is not supported by SQLite
+
+    FROM managers
+    """
+results = pd.read_sql_query(q, con)
+results
+```
+
+```{python}
+# Round
+q = """SELECT playerID,
+              G AS 'Games managed',
+              W AS 'Wins',
+              L AS 'Losses',
+              round((W*1.0 / G),3) AS 'Win %'
+    FROM managers
+    """
+results = pd.read_sql_query(q, con)
+results
+```
+ORDER BY
+
+Notice the use of back ticks if my aliases have spaces or special characters
+```{python}
+q = """SELECT playerID,
+              G AS 'Games managed',
+              W AS 'Wins',
+              L AS 'Losses',
+              (W*1.0 / G) AS 'Win %'
+    FROM managers
+    ORDER BY `Win %` DESC
+    """
+results = pd.read_sql_query(q, con)
+results
+```
+
+```{python}
+q = """SELECT playerID,
+              G AS 'Games managed',
+              W AS 'Wins',
+              L AS 'Losses',
+              (W*1.0 / G) AS 'Win_Percent'
+    FROM managers
+    ORDER BY Win_Percent DESC, G DESC
+    """
+results = pd.read_sql_query(q, con)
+results
+```
+
+WHERE
+```{python}
+q = """SELECT playerID,
+              G AS 'Games managed',
+              W AS 'Wins',
+              L AS 'Losses',
+              (W*1.0 / G) AS 'Win_Percent'
+    FROM managers
+    WHERE G > 10
+    ORDER BY Win_Percent DESC, G DESC
+    """
+results = pd.read_sql_query(q, con)
+results
+```
+
+Add year, and add "and" logic to the where clause
+```{python}
+q = """SELECT 
+              G AS 'Games managed',
+              W AS 'Wins',
+              L AS 'Losses',
+              (W*1.0 / G) AS 'Win_Percent'
+    FROM managers
+    WHERE G > 10 and yearID > 1960
+    ORDER BY Win_Percent DESC, G DESC
+    """
+results = pd.read_sql_query(q, con)
+results
+```
+
+OR and NOT or BETWEEN
+
+```{python}
+q = """SELECT 
+              teamID,
+              G AS 'Games managed',
+              W AS 'Wins',
+              L AS 'Losses',
+              (W*1.0 / G) AS 'Win_Percent'
+    FROM managers
+    WHERE (G > 10 and yearID > 1960) AND
+          -- teamID == 'SEA' OR teamID == 'NYA'
+          -- teamID LIKE 'S%' OR teamID LIKE 'NY_'
+          -- teamID in ('SEA', 'NYA', 'BAL')
+          -- teamID NOT IN ('SEA', 'NYA', 'BAL')
+    ORDER BY Win_Percent DESC, G DESC
+    """
+results = pd.read_sql_query(q, con)
+results
+```
+
+*******************************************
+
+# EVERTHING BELOW THIS IS OLD STUFF FOR ADDITIONAL DAYS. wE DON'T DO ANYMORE IN SQL
+
+********************************************
+
+## Time Permitting: GROUP BY and summaries
+
+### Calculate summaries
+
+This time calculate the summary for those managers who have coached more than 100 games total:
+
+WRONG WAY
+```{python}
+q = """SELECT 
+              teamID,
+              playerID,
+              G AS 'Games managed',
+              -- Sum(G) as 'total_games',
+              W AS 'Wins',
+              L AS 'Losses',
+              (W*1.0 / G) AS 'Win_Percent'
+    FROM managers
+    WHERE G >= 100
+    ORDER BY Win_Percent DESC, G DESC
+    """
+results = pd.read_sql_query(q, con)
+results
+```
+
+another attempt
+
+```{python}
+q = """SELECT 
+              teamID,
+              playerID,
+              G AS 'Games managed',
+              Sum(G) as 'total_games',
+              SUM(W) AS 'total_wins',
+              (SUM(W)*1.0 / SUM(G)) AS 'Win_Percent',
+              W AS 'Wins' -- include this just so they can see
+              
+    FROM managers
+
+    WHERE G >= 100 -- this code runs but doesn't do what you think
+    GROUP BY playerID
+    """
+results = pd.read_sql_query(q, con)
+results
+```
+
+```{python}
+q = """SELECT 
+              teamID,
+              playerID,
+              G AS 'Games managed',
+              Sum(G) as 'total_games',
+              SUM(W) AS 'total_wins',
+              (SUM(W)*1.0 / SUM(G)) AS 'Win_Percent',
+              W AS 'Wins' -- include this just so they can see
+              
+    FROM managers
+    WHERE total_games >= 100 --gives an error!!!
+    GROUP BY playerID
+    
+    """
+results = pd.read_sql_query(q, con)
+results
+```
+
+
+
+probably what you wanted
+
+```{python}
+q = """SELECT 
+              teamID,
+              playerID,
+              G AS 'Games managed',
+              Sum(G) as 'total_games',
+              SUM(W) AS 'total_wins',
+              (SUM(W)*1.0 / SUM(G)) AS 'Win_Percent',
+
+    FROM managers
+    -- where comes before group by and is applied before the summary statistic
+    GROUP BY playerID
+    --notice how having comes after group by, it is applied after the summary
+    HAVING total_games > 100
+    
+    """
+results = pd.read_sql_query(q, con)
+results
+```
+
+
+```{python}
+q = """SELECT 
+              teamID,
+              playerID,
+              G AS 'Games managed',
+              Sum(G) as 'total_games',
+              SUM(W) AS 'total_wins',
+              (SUM(W)*1.0 / SUM(G)) AS 'Win_Percent',
+              AVG( W * 1.0 / G) AS 'Avg_Win_Percent' --this is the wrong way!!!
+
+    FROM managers
+    GROUP BY playerID
+    HAVING total_games > 100
+    
+    """
+results = pd.read_sql_query(q, con)
+results
+```
+
+They can now complete task question 2: the 3 part question.
+
+## Joins
+
+I want to create a dataframe that has information about the schools, but also contains information about the ballpark if there is one in the same city. So I will want to join the schools table with the parks table on the city field.
+
+This code will include all field from schools and bring in data from the parks table only if the city matches
+```{python}
+q = """SELECT *
+    FROM schools
+    LEFT OUTER JOIN parks ON schools.city = parks.city 
+    """
+results = pd.read_sql_query(q, con)
+results.tail(15)
+# results
+```
+
+Notice that the first few colleges has None or NaN in the columns from parks before there was no match on city. But Xavier has data because it is located in Cincinnati, which also has a major league team...who is it (the Reds).
+
+But Xavier has two rows in the resulting table...why? It is because there are more than 1 park in Cincinnati.
+
+In fact, if I look at the last bit of the dataset, I see there are 10 rows for Xavier. Each row has unique data in the parks fields. There are probably 10 rows of parks in the parks table
+
+```{python}
+results.tail(15)
+```
+
+**Go verify/see the 10 parks in Cincinnati**
+
+What if I am interested specifically in Los Angeles. **Go to each table to see**
+How many schools in LA? 8
+How many stadiums in LA? (3)
+
+So how many rows will be in the resulting table (I add a where clause to only include rows where the city is Los Angeles)
+
+```{python}
+q = """SELECT *
+    FROM schools
+    LEFT OUTER JOIN parks ON schools.city = parks.city
+    WHERE schools.city == "Los Angeles"
+    """
+results = pd.read_sql_query(q, con)
+results
+
+```
+
+There are 24 (8x3 = 24). For each school in LA, it went to the parks table and found 3 matches or rows with Los Angeles.
+
+### Full outer join
+
+What will happen when I change LEFT to FULL
+```{python}
+q = """SELECT *
+    FROM schools
+    FULL OUTER JOIN parks ON schools.city = parks.city 
+    """
+results = pd.read_sql_query(q, con)
+#results.tail(15)
+results
+```
+
+Now we see that there are (or were!) major league baseball parks where no college exists. (The tail looks like parks for old stadiums?). There are NA's in the schools fields and in the parks field
+
+### Inner join
+
+Now let's only consider those cities that have both schools and parks. The "inner" part is implied or the default. THere are not going to be missing values.
+
+```{python}
+q = """SELECT *
+    FROM schools
+    JOIN parks ON schools.city = parks.city 
+    """
+results = pd.read_sql_query(q, con)
+results
+```
+
+(You can see the summary slide in the power point).
+
+Notice in this result, that there is an Albany Georgia and an Albany NY. These are two different places, but because we are just joining on city (Albany) it was considered a match. You can join on more than 1 field like so.
+
+```{python}
+q = """SELECT *
+    FROM schools
+    JOIN parks ON schools.city = parks.city AND
+                  schools.state = parks.state
+    """
+results = pd.read_sql_query(q, con)
+results
+```
+
+Yields only 900 rows, which is fewer than the 974.
+
+The table is a bit unwieldy, including duplicated columns. So let's request just the fields we want, not all of them.
+
+```{python}
+q = """SELECT schools.*,
+              parks.parkname
+    FROM schools
+    JOIN parks ON schools.city = parks.city AND
+                  schools.state = parks.state
+    """
+results = pd.read_sql_query(q, con)
+results
+```
+
+It's often helpful to give the tables aliases to make the code more readable (this isn't really a problem in this query, but we'll demonstrate just to show it).
+
+```{python}
+q = """SELECT s.*,
+              p.parkname
+              
+    FROM schools AS s
+    JOIN parks AS p   ON s.city = p.city AND
+                  s.state = p.state
+    """
+results = pd.read_sql_query(q, con)
+results
+```
+
+
+## Multiple joins
+
+multiple joins: Get a list of schools in each city with a baseball park, as well as the team that plays in that city
+
+```{python}
+q = """SELECT s.*,
+              p.parkname,
+              teams.yearID,
+              teams.name
+    FROM schools AS s
+    JOIN parks AS p ON s.city = p.city AND
+                  s.state = p.state
+    JOIN teams ON teams.park = p.parkname
+    WHERE teams.yearID = 2019
+    --LIMIT 20
+    """
+results = pd.read_sql_query(q, con)
+results
+```
+
+
+Here's another way using the "with" command.
+```{python}
+q = """WITH double_city AS (SELECT s.*
+              , p.parkname
+              , p.city
+        FROM schools AS s
+        JOIN parks AS p ON s.city = p.city AND
+                  s.state = p.state)
+        
+        SELECT *
+             , teams.yearID
+             , teams.park
+        FROM double_city
+        JOIN teams on double_city.parkname = teams.park
+        WHERE teams.yearID = 2019
+        
+    """
+results = pd.read_sql_query(q, con)
+results
+```
+
+Give them time to work on the next assignment
+
+### You can ignore below here, it didn't work too well ###
+
+```{python}
+q = """WITH double_city AS (SELECT s.*,
+              p.parkname,
+        FROM schools AS s
+        JOIN parks AS p ON s.city = p.city AND
+                  s.state = p.state)
+    
+    SELECT * 
+    --    , teams.yearID
+    --   , teams.name
+    FROM double_city
+    --JOIN teams ON double_city.parkname = teams.park
+    --WHERE teams.yearID = 2019
+    """
+results = pd.read_sql_query(q, con)
+results
+```
+## A subquery using WITH
+
+Calculate the number of awards a manager got and add that to the people table
+
+```{python}
+q = """SELECT COUNT(awardID)
+              , playerID
+       FROM awardsmanagers
+       GROUP BY playerID
+    """
+results = pd.read_sql_query(q, con)
+results
+```
+
+
+## Multiple Sub-queries with WITH
+
+
+Can I get a dataset that will allow me to plot an average of the past 5 years of attendance (for currently active parks) against # of schools in the city of that time.
+
+```{python}
+# Try to create a dataset with the count of school in each city with a major league park
+q = """SELECT s.*,
+              p.parkname,
+              COUNT(s.schoolID) AS school_count
+    FROM schools AS s
+    JOIN parks AS p ON s.city = p.city AND
+                  s.state = p.state
+    GROUP BY s.city
+    LIMIT 10
+    """
+results = pd.read_sql_query(q, con)
+results
+
+```
+```{python}
+# Find a dataset that includes average attendance for the 5 most recent years in the dataset
+
+q = """SELECT teams.park
+           , teams.teamID
+           , teams.name
+           , teams.attendance
+           , AVG(teams.attendance)
+    FROM teams
+    WHERE teams.yearID BETWEEN 2015 AND 2019
+    GROUP BY teams.teamID
+
+    """
+results = pd.read_sql_query(q, con)
+results
+```
+
+Now put those two separate queries together.
+I didn't get as cool of a result as I had hoped. Only 7 teams could be identified by their park name...so, oh well
+```{python}
+q = """WITH team_avg AS (SELECT park
+           , teamID
+           , name
+           , AVG(teams.attendance)
+            FROM teams
+            WHERE teams.yearID BETWEEN 2015 AND 2019
+            GROUP BY teams.teamID),
+       school_num AS (SELECT s.*,
+            p.parkname,
+            COUNT(s.schoolID) AS school_count
+            FROM schools AS s
+            JOIN parks AS p ON s.city = p.city AND
+                s.state = p.state
+            GROUP BY s.city)
+
+    SELECT *
+    FROM team_avg
+    LEFT OUTER JOIN school_num ON team_avg.park = school_num.parkname
+    """
+results = pd.read_sql_query(q, con)
+results
+```

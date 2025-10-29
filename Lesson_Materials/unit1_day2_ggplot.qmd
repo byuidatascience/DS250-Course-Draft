@@ -1,0 +1,93 @@
+---
+title: "Untitled"
+format: html
+---
+
+Load libraries and load in data
+
+```{python}
+import numpy as np
+import pandas as pd
+from lets_plot import *
+LetsPlot.setup_html(isolated_frame=True)
+
+
+url = "https://byui-cse.github.io/cse110-course/lesson11/life-expectancy.csv"
+df = pd.read_csv(url)
+```
+
+REVIEW EXERCISE:
+Just look at the United States, rename the last column to "Life".
+
+```{python}
+usa = (
+       df.query('Entity == "United States"')
+         .rename(columns={'Life expectancy (years)': 'Life'})
+      )
+```
+
+Now to create a plot. Try watching these videos for a quick into to ggplot:
+
+https://youtu.be/uiTc55clwuA
+
+https://youtu.be/PiY9hwOkL8U
+
+
+```{python}
+(
+    ggplot(data = usa)
+        + geom_histogram(mapping = aes(x = 'Life'))
+)
+```
+
+Now show a plot that excludes life expectancies less than 40 This can be done either with a query, or with a scale_x_continuous() or coord_cartesian().
+
+# Task 1 USA life expectancy
+
+Don't show the format or breaks, let them figure some stuff out on their own
+```{python}
+(
+    ggplot(data = usa)
+        + geom_line(mapping = aes(x = 'Year', y = 'Life')) 
+        + scale_x_continuous(limits = [1900, 2000],
+                            #   format = 'd',
+                            #   breaks = list(range(1900, 2021, 10))
+                            )
+)
+```
+
+Task 2 requires some extra "markings". Marking used to enhance your plot and draw attention to certain things. When I evaluate a plot, here are some key questions:
+
+- What do you notice?
+- What do you wonder?
+- How does this relate to you/your community?
+- It's fun to try and come up with a catchy headline to capture the main idea/message or feature of a graph.
+
+These can be guiding questions to determine what additional markings might be helpful. What do you notice in this graph?
+
+
+Example:
+* Note: save the labeling for last, only if there is time. If you don't get to labelling, be sure to remind them to do it.
+
+How them how to read the help file
+
+```{python}
+p = (
+    ggplot(data = usa,
+           ) +
+           geom_line(mapping = aes(x = 'Year', y = 'Life')) +
+           scale_x_continuous(limits = [1900, 2000],
+                            #   format = 'd',
+                            #   breaks = list(range(1900, 2021, 10))
+                              ) +
+            geom_rect(xmin = 1915, xmax = 1920, ymin = 45, ymax = 56, fill = "red", alpha = .2) +
+            geom_segment(x = 1925, xend = 1920, y = 46, yend = 47, arrow = arrow()) +
+            geom_text(x = 1926, y = 46, label = "Spanish Flu", hjust = 0) +
+            geom_vline(xintercept = 1943, color = "red", linetype = 2) +
+            geom_text(x = 1945, y = 65, angle = 450, color = "red",hjust = 1,
+                      label = "1943 was last decrease") +
+            labs(title = "United States", y = "Life Expectancy (yrs)")
+
+)
+p
+```

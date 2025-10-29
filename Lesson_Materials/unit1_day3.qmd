@@ -1,0 +1,86 @@
+---
+title: "Untitled"
+format: html
+---
+
+Load libraries and load in data
+
+```{python}
+import numpy as np
+import pandas as pd
+from lets_plot import *
+LetsPlot.setup_html(isolated_frame=True)
+
+
+url = "https://byui-cse.github.io/cse110-course/lesson11/life-expectancy.csv"
+df = pd.read_csv(url)
+```
+
+REVIEW EXERCISE:
+
+Can you get a dataset that includes 3 countries (pick the United States and two other of your favorites)?
+
+```{python}
+three = (df.query('Entity == ["United States", "France", "Japan"]')
+           .rename(columns={'Life expectancy (years)': 'Life'})
+        )
+```
+
+## Additional aesthetics
+
+Now plot the data (do it WRONG first, without the color aesthetic) and ask? Does this data look right? (we plotted the US data last class, so they should see that something isn't going right).
+
+It's plotting all 3 simultaneously.
+
+```{python}
+p = (
+    ggplot(data = three,
+           mapping = aes(x = 'Year', y = "Life", color = "Entity")) 
+           + geom_line() 
+          #  scale_x_continuous(format = "d")
+          #  + scale_x_continuous(format = ".0f")
+           + scale_x_continuous(format = "g")
+           + labs(title = "Different Life Expectancy Progression")
+)
+p
+```
+
+SHOW LABS IF YOU HAVEN'T YET!!
+
+challenge: Can you figure out how to customize the color??
+
+## Predefined Themes
+
+Themes are non-data ink. Sets of these work well together, so they create pre-defined themes.
+
+Have them try a couple:
+```{python}
+p + theme_classic()
+```
+
+## Custom Themes
+
+To control specific elements of the theme, you first start by identifying the main element/aspect of the chart, and then drill down using _ and fill down.
+
+There are just a few main areas of the chart:
+
+- plot
+- panel
+- axis
+- legend
+
+Once you have identified the correct piece of the chart, then you will often use a helper function on the right side of the equal sign. The helper functions correspond with what type of element you are customizing. The three most common helper functions are:
+
+- element_blank() This turns it off
+- element_text()  controls parameters effecting how text shows up
+- element_line()  controls how lines show up. There is also element_rect()
+
+```{python}
+(
+    p + theme(plot_title = element_text(color = "blue", size =34, hjust = .5),
+              panel_grid= element_line(linetype = 2),
+              panel_g) #blank = True...so don't need element_blank()
+            #   panel_grid = element_line(blank = True))
+)
+```
+

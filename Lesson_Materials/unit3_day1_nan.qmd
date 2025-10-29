@@ -1,0 +1,178 @@
+## W07.1 - P3 (Week A) - Class Code
+
+### Below is the video for the class code walkthrough.
+[Video](https://cdnapisec.kaltura.com/p/1157612/sp/115761200/embedIframeJs/uiconf_id/41338032/partner_id/1157612?iframeembed=true&playerId=kaltura_player&entry_id=1_0ufazfsc&flashvars[localizationCode]=en&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_7ila7wss)
+
+```{=html}
+<iframe id="kaltura_player" src="https://cdnapisec.kaltura.com/p/1157612/sp/115761200/embedIframeJs/uiconf_id/41338032/partner_id/1157612?iframeembed=true&playerId=kaltura_player&entry_id=1_0ufazfsc&flashvars[localizationCode]=en&amp;flashvars[sideBarContainer.plugin]=true&amp;flashvars[sideBarContainer.position]=left&amp;flashvars[sideBarContainer.clickToClose]=true&amp;flashvars[chapters.plugin]=true&amp;flashvars[chapters.layout]=vertical&amp;flashvars[chapters.thumbnailRotator]=false&amp;flashvars[streamSelector.plugin]=true&amp;flashvars[EmbedPlayer.SpinnerTarget]=videoHolder&amp;flashvars[dualScreen.plugin]=true&amp;flashvars[Kaltura.addCrossoriginToIframe]=true&amp;&wid=1_7ila7wss" width="608" height="402" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" sandbox="allow-downloads allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="W04.1 - Cleansing Intro"></iframe>
+```
+
+### Introduction to the functions you will be learning in this unit. Below is the code used in the video so you can follow along.
+
+```{python}
+#import sys
+#!{sys.executable} -m pip install requests
+# %%
+# The usuals
+import pandas as pd
+import numpy as np
+from lets_plot import *
+
+LetsPlot.setup_html(isolated_frame=True)
+```
+
+Give them columns one, two and three. Then remind them that assign creates a new column, which can be made as a function of the other columns.
+
+Also point out the use of np.nan.
+```{python}
+# %%
+# missing data
+df = (pd.DataFrame(
+    np.random.randn(5, 3), 
+    index=['a', 'c', 'e', 'f', 'h'],
+    columns=['one', 'two', 'three'])
+  .assign(
+    six = [np.nan, np.nan, 2, 2, 1],
+    seven = [4, 5, 5, np.nan, np.nan],
+    four = ['bar', '', 'bar', 'bar', np.nan], 
+    five = lambda x: x.one > 0
+)
+  )
+df
+```
+
+## Dealing with missing data
+
+```{python}
+# %%
+df.seven + df.six
+```
+
+```{python}
+# %%
+df.seven.sum()
+df.seven.mean()
+# NOTE: This is different than how R deals with na. In R, the na is contagious, not silent.
+```
+
+There are 2 ways to deal with NA's:
+
+- fillna()
+    - Pro: good if you plan to fill in the na's in various columns with different values
+    - Con: more limited to dealing only with NA (NaN) in the datset
+- replace()
+    - Pro: If you want to replace various values across the entire dataset, or also replace non-NaN values
+    - Con: nested dictionaries are a bit more involved
+
+
+Let's illustrate fillna() first:
+
+```{python}
+# %%
+df.seven.fillna(0)
+df.seven.fillna(df.seven.mean()) 
+df.seven.fillna(df.seven.mean()).sum()
+
+df.seven.fillna(df.seven.mean()) + df.six.fillna(df.six.mean())
+```
+
+Point out that above we are filling in mean for a missing value. This may be okay in some machine learning models and high dimensional regression, but with classical statistical methods that involves testing significance of the coefficients, this is highly frowned upon because it drastically reduces the standard deviation of the variable. 
+
+A more permanent version of the cleaned dataset. Here's the power of fillna()
+
+```{python}
+fillvalues = {'six': df.six.mean(), 
+              'seven': df.seven.mean(),
+              'four': "line"}
+df_cleaned = df.fillna(value = fillvalues)
+df_cleaned
+```
+
+Notice that the empty spot in four did not get filled because it is not technically a missing value. This is where replace comes in handy
+
+Let's look at replace() now.
+
+```{python}
+# %%
+df.seven.replace(np.nan, 0)
+df.seven.replace(np.nan, df.seven.mean()) 
+
+df.replace({np.nan: 0,
+            2: 55})
+
+df.five.astype(int) #Notice how booleans convert to 0 and 1. 
+
+df.replace({'six': {np.nan: df.six.mean()},
+            'seven': {np.nan: df.seven.mean()},
+            'four': {'': 'new_thing',
+                     np.nan: 'line'}
+            }
+           )
+```
+
+Another approach that replaces missing values, is a forward fill command. 
+
+```{python}
+df.four.ffill()
+df.seven.ffill()
+df.fillna(method = 'ffill') #Notice the missing values at the top still, also would need to change the blank in 'four' to an nan first if we wanted to fill it
+
+#You can also fill across instead of down:
+df.ffill(axis = 1)
+```
+
+## JSON
+
+Go look at the url to see how json data is organized. JSON is common, especially on the web.
+ 
+Read it in as usual.
+
+```{python}
+# %%
+# project 2
+url = "https://github.com/byuidatascience/data4missing/raw/master/data-raw/mtcars_missing/mtcars_missing.json"
+cars_json = pd.read_json(url)
+cars_json
+```
+
+
+## Practice on the cars dataset
+
+On those variables that are 0 and 1, or 3 and 4, talk about whether a mean or median (or neither!) is most appropriate to fill in.
+
+```{python}
+#dup df for cleansing
+cars_json_clean = cars_json
+
+#replace hp nan wiht mean
+cars_json_clean.hp = cars_json_clean.hp.fillna(cars_json_clean.hp.mean())
+
+cars_json_clean.vs = cars_json_clean.vs.fillna(cars_json_clean.vs.median())
+
+cars_json_clean.wt = cars_json_clean.wt.fillna(cars_json_clean.wt.mean())
+
+cars_json_clean
+```
+
+```{python}
+cars_json_clean.gear = cars_json_clean.gear.replace(999,np.nan)
+
+#replace nan with median
+cars_json_clean.gear = cars_json_clean.gear.fillna(cars_json_clean.gear.median())
+
+cars_json_clean
+```
+
+```{python}
+cars_json.car = cars_json.car.replace('',np.nan)
+cars_json.car = cars_json.car.fillna(cars_json.car.ffill())
+
+cars_json_clean
+```
+
+# Next Day
+
+Need to cover .assign and lambda functions. Need to cover .aggregate as well as probably the need for reset_index() and what it does.
+
+Covering either pd.Categorical, or a .merge() (or both!) will likely be needed in order to complete question 3
+
