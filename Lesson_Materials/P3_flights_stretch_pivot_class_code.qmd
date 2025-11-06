@@ -1,0 +1,78 @@
+---
+title: "Untitled"
+format: html
+---
+
+## Background
+
+Each semester BYU-Idaho holds a Research and Creative Works Conference (R&CW) where on-campus students can display key projects they have worked on during the semester. We will be analyzing the R&CW. Our goal is to see how many projects come from which departments over time.
+
+
+```{python}
+import pandas as pd
+import numpy as np
+from lets_plot import *
+
+LetsPlot.setup_html(isolated_frame=True)
+
+df_long = pd.read_csv('https://byuistats.github.io/M335/data/rcw_reshape.csv')
+
+```
+
+Is the data in long or wide format? How can you tell? It's LONG
+
+Convert it to wide:
+
+```{python}
+df_wide = pd.pivot(df_long, index = ['Year', 'Semester', 'Semester_Date'],
+            columns = "Department",
+            values = "Count").reset_index()
+```
+
+
+Now convert it back to long
+```{python}
+df_long2 = pd.melt(df_wide, id_vars=['Year', 'Semester', 'Semester_Date'],
+            var_name = "department",
+            value_name = "count")
+```
+
+### Discussion/Observation:
+
+* *How many rows does the new long format have? *
+* *How does that compare with the original data? Why?*
+*   *Discuss: When might you want to make implicit NA's explicit? Why would you not?*
+
+## Plot the long format
+
+Now it's in long format (again) we can plot it. Let's create a line plot to see the progress of each department over time.
+
+
+```{python}
+ggplot(data = df_long2, mapping = aes(x = 'Semester_Date', y = 'count', color = 'department')) + geom_line()
+```
+
+The result is out of order, can we change the order?
+
+
+```{python}
+df_long2['new_date'] = pd.Categorical(df_long2['Semester_Date'], categories = ['4/1/2016', '9/1/2016', '1/1/2017', '4/1/2017', '9/1/2017', '1/1/2018', '4/1/2018'], ordered=True)  #OOPS, make sure you add 'ordered = True'
+
+ggplot(data = df_long2, mapping = aes(x = 'new_date', y = 'count', color = 'department')) + geom_line() + labs(title = "Missing values in place")
+```
+
+BEWARE! This chart is a bit deceptive. When there is a missing value it just connects the two other dots. (Go verify it). We should probably put zeros in for the missing values.
+
+
+```{python}
+#Note referencing the column name with a period doesn't work here
+#df_long2.count.fillna(0) #DOESN'T WORK
+
+df_long_0 = pd.DataFrame(df_long2)
+    
+df_long_0['count']= df_long_0['count'].fillna(0)
+
+ggplot(data = df_long_0, mapping = aes(x = 'new_date', y = 'count', color = 'department')) + geom_line() + labs(title = "Missing values converted to zero")
+
+
+```
